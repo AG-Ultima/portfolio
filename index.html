@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arnav Gupta — Student Developer, Founder of Wizard Ecosystem</title>
+<meta name="description" content="Arnav Gupta builds AI-powered software from idea to production. Founder of Wizard Ecosystem, a full AI platform with nine integrated applications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #0b0714;
+    --bg-panel: #161022;
+    --bg-panel-2: #1d1530;
+    --line: rgba(232, 214, 255, 0.10);
+    --ink: #ede6f7;
+    --ink-dim: #9d8fb8;
+    --ink-dimmer: #6c6086;
+    --gold: #e8b657;
+    --gold-dim: #b3893c;
+    --violet: #8266f0;
+    --violet-glow: rgba(130, 102, 240, 0.35);
+    --display: 'Fraunces', serif;
+    --body: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  ::selection{ background: var(--violet-glow); color: var(--ink); }
+
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  .bg-texture{
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(130,102,240,0.16), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(232,182,87,0.06), transparent 60%),
+      var(--bg);
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(11, 7, 20, 0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 32px; max-width: 1080px; margin: 0 auto;
+  }
+  .brand{
+    font-family: var(--display); font-size: 1.15rem; font-weight: 600;
+    letter-spacing: 0.01em; display:flex; align-items:center; gap: 10px;
+    cursor: pointer; background: none; border: none; color: var(--ink);
+  }
+  .brand-mark{ width: 22px; height: 22px; display:inline-block; }
+  .navlinks{ display:flex; gap: 8px; font-size: 0.88rem; color: var(--ink-dim); align-items: center; }
+  .navlinks button{
+    background: none; border: none; color: var(--ink-dim);
+    font-family: var(--body); font-size: 0.88rem; cursor: pointer;
+    position: relative; padding: 6px 12px; transition: color 0.2s ease;
+    border-radius: 4px;
+  }
+  .navlinks button:hover, .navlinks button:focus-visible{ color: var(--ink); }
+  .navlinks button.active{ color: var(--gold); }
+  .navlinks button.active::after{
+    content:''; position:absolute; left:12px; right:12px; bottom:0;
+    height: 1px; background: var(--gold);
+  }
+  .nav-cta{
+    font-family: var(--mono); font-size: 0.76rem;
+    border: 1px solid var(--gold-dim); color: var(--gold);
+    padding: 7px 14px; border-radius: 3px; margin-left: 10px;
+    transition: all 0.2s ease; white-space: nowrap;
+  }
+  .nav-cta:hover{ background: var(--gold); color: #1a1206; }
+  @media (max-width: 780px){
+    .navlinks button{ display:none; }
+    .nav-cta{ display:inline-block; }
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px;
+  }
+
+  /* ---------- PAGES ---------- */
+  .page{ display:none; }
+  .page.active{ display:block; animation: fadein 0.35s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform: translateY(0);} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative; padding: 110px 32px 90px;
+    display:flex; flex-direction: column; align-items: center; text-align: center;
+    min-height: 82vh; justify-content: center;
+  }
+  #sparks{ position:absolute; inset:0; z-index: 0; pointer-events:none; }
+  .rune-ring{
+    position:absolute; top: 50%; left: 50%; width: 640px; height: 640px;
+    transform: translate(-50%, -50%); opacity: 0.5; z-index: 0;
+    animation: spin 120s linear infinite;
+  }
+  @keyframes spin{ to{ transform: translate(-50%,-50%) rotate(360deg); } }
+  .hero-inner{ position: relative; z-index: 2; }
+
+  .eyebrow{
+    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before{
+    content:''; width: 6px; height: 6px; background: var(--gold);
+    border-radius: 50%; box-shadow: 0 0 8px var(--gold);
+  }
+
+  h1.hero-title{
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.05;
+    letter-spacing: -0.01em; max-width: 16ch; margin: 0 auto 26px;
+  }
+  h1.hero-title em{ font-style: italic; font-weight: 500; color: var(--gold); }
+
+  .hero-sub{ font-size: 1.15rem; color: var(--ink-dim); max-width: 50ch; margin: 0 auto 40px; }
+  .hero-sub strong{ color: var(--ink); font-weight: 600; }
+
+  .hero-ctas{ display:flex; gap: 16px; justify-content:center; flex-wrap: wrap; }
+  .btn{
+    font-family: var(--mono); font-size: 0.85rem; padding: 13px 26px;
+    border-radius: 3px; border: 1px solid var(--line); transition: all 0.2s ease;
+    display:inline-flex; align-items:center; gap: 8px; cursor: pointer;
+    background: none; color: var(--ink);
+  }
+  .btn-primary{ background: var(--gold); color: #1a1206; border-color: var(--gold); font-weight: 500; }
+  .btn-primary:hover{ background: #f3c56a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,182,87,0.25); }
+  .btn-secondary{ color: var(--ink); background: rgba(255,255,255,0.02); }
+  .btn-secondary:hover{ border-color: var(--violet); background: rgba(130,102,240,0.08); }
+  .btn-gold-outline{ color: var(--gold); border-color: var(--gold-dim); background: rgba(232,182,87,0.04); }
+  .btn-gold-outline:hover{ background: var(--gold); color: #1a1206; }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding: 100px 0; position: relative; }
+  .page > section:first-of-type{ padding-top: 90px; }
+  .section-head{ margin-bottom: 56px; max-width: 64ch; }
+  .section-eyebrow{
+    font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-dimmer); margin-bottom: 14px;
+  }
+  .section-title{
+    font-family: var(--display); font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+    font-weight: 600; line-height: 1.15;
+  }
+  .section-title em{ font-style: italic; color: var(--gold); font-weight: 500; }
+  .section-lede{ color: var(--ink-dim); font-size: 1.05rem; margin-top: 18px; max-width: 64ch; }
+
+  hr.rule{ border: none; height: 1px; background: var(--line); }
+
+  /* ---------- ABOUT ---------- */
+  .about{ display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: start; }
+  @media (max-width: 800px){ .about{ grid-template-columns: 1fr; } }
+  .about-copy p{ color: var(--ink-dim); margin-bottom: 20px; font-size: 1.02rem; }
+  .about-copy p strong{ color: var(--ink); font-weight: 600;}
+  .about-copy h3{
+    font-family: var(--display); font-size: 1.25rem; font-weight: 600;
+    margin: 40px 0 16px; color: var(--ink);
+  }
+  .about-copy h3:first-child{ margin-top: 0; }
+
+  .about-card{
+    background: var(--bg-panel); border: 1px solid var(--line);
+    border-radius: 6px; padding: 28px; position: sticky; top: 100px;
+  }
+  .about-card h4{
+    font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 18px;
+  }
+  .fact-row{
+    display:flex; justify-content: space-between; padding: 12px 0;
+    border-bottom: 1px solid var(--line); font-size: 0.92rem;
+  }
+  .fact-row:last-child{ border-bottom: none; }
+  .fact-label{ color: var(--ink-dimmer); }
+  .fact-value{ color: var(--ink); text-align: right; font-weight: 500; }
+
+  /* ---------- STATS ---------- */
+  .stats{ display:grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  @media (max-width: 800px){ .stats{ grid-template-columns: repeat(2, 1fr); } }
+  .stat{ padding: 40px 24px; text-align:center; border-right: 1px solid var(--line); }
+  .stat:last-child{ border-right: none; }
+  @media (max-width: 800px){ .stat:nth-child(2n){ border-right: none; } }
+  .stat-num{ font-family: var(--display); font-size: 2.6rem; font-weight: 600; color: var(--gold); line-height: 1; }
+  .stat-label{ font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dimmer); margin-top: 10px; letter-spacing: 0.02em; }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ position: relative; padding-left: 32px; }
+  .timeline::before{
+    content:''; position:absolute; left: 5px; top: 6px; bottom: 6px; width: 1px;
+    background: linear-gradient(var(--violet), var(--gold)); opacity: 0.4;
+  }
+  .t-item{ position: relative; padding-bottom: 40px; }
+  .t-item:last-child{ padding-bottom: 0; }
+  .t-item::before{
+    content:''; position:absolute; left: -32px; top: 4px; width: 11px; height: 11px;
+    border-radius: 50%; background: var(--bg); border: 2px solid var(--gold);
+  }
+  .t-date{ font-family: var(--mono); color: var(--gold); font-size: 0.85rem; margin-bottom: 6px; letter-spacing: 0.04em; }
+  .t-desc{ color: var(--ink-dim); font-size: 0.98rem; max-width: 62ch; }
+  .t-desc strong{ color: var(--ink); font-weight: 600; }
+
+  /* ---------- ECOSYSTEM ---------- */
+  .ecosystem-cta{
+    display:flex; align-items:center; justify-content:space-between; gap: 24px;
+    background: var(--bg-panel); border: 1px solid var(--violet); border-radius: 8px;
+    padding: 32px 36px; margin-bottom: 56px; flex-wrap: wrap;
+  }
+  .ecosystem-cta-text h3{ font-family: var(--display); font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+  .ecosystem-cta-text p{ color: var(--ink-dim); font-size: 0.96rem; }
+
+  .app-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px){ .app-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px){ .app-grid{ grid-template-columns: 1fr; } }
+
+  .app-card{
+    background: var(--bg-panel); border: 1px solid var(--line); border-radius: 6px;
+    padding: 26px; transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  }
+  .app-card:hover{ border-color: var(--violet); transform: translateY(-3px); background: var(--bg-panel-2); }
+  .app-icon{ font-size: 1.5rem; margin-bottom: 14px; display:block; }
+  .app-name{ font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
+  .app-desc{ color: var(--ink-dim); font-size: 0.92rem; margin-bottom: 16px; }
+  .app-tags{ display:flex; flex-wrap: wrap; gap: 6px; }
+  .tag{
+    font-family: var(--mono); font-size: 0.7rem; color: var(--ink-dimmer);
+    border: 1px solid var(--line); padding: 3px 9px; border-radius: 3px;
+  }
+
+  .architecture-note{
+    margin-top: 56px; padding: 32px; border: 1px solid var(--line);
+    border-radius: 6px; background: var(--bg-panel);
+  }
+  .architecture-note h4{
+    font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 16px;
+  }
+  .architecture-note p{ color: var(--ink-dim); font-size: 0.95rem; margin-bottom: 12px; }
+  .architecture-note p:last-child{ margin-bottom: 0; }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px){ .proj-grid{ grid-template-columns: 1fr; } }
+  .proj-card{
+    border: 1px solid var(--line); border-radius: 6px; padding: 30px;
+    background: var(--bg-panel); transition: border-color 0.25s ease;
+  }
+  .proj-card:hover{ border-color: var(--gold-dim); }
+  .proj-title{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
+  .proj-date{ font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dimmer); margin-bottom: 14px; display:block; }
+  .proj-desc{ color: var(--ink-dim); font-size: 0.94rem; margin-bottom: 18px; }
+  .proj-link{ font-family: var(--mono); font-size: 0.8rem; color: var(--violet); border-bottom: 1px solid transparent; }
+  .proj-link:hover{ border-color: var(--violet); }
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  @media (max-width: 800px){ .skill-groups{ grid-template-columns: repeat(2, 1fr); } }
+  .skill-group h4{
+    font-family: var(--mono); font-size: 0.76rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 16px;
+  }
+  .skill-group ul{ list-style: none; }
+  .skill-group li{ color: var(--ink-dim); font-size: 0.92rem; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .skill-group li:last-child{ border-bottom: none; }
+
+  .credentials{ margin-top: 70px; }
+  .cred-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  @media (max-width: 700px){ .cred-grid{ grid-template-columns: 1fr; } }
+  .cred-block h4{
+    font-family: var(--mono); font-size: 0.76rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 16px;
+  }
+  .cred-block ul{ list-style: none; }
+  .cred-block li{
+    color: var(--ink-dim); font-size: 0.92rem; padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cred-block li:last-child{ border-bottom: none; }
+  .cred-block li strong{ color: var(--ink); font-weight: 600; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-form-shell{
+    max-width: 720px; margin: 0 auto;
+    background: var(--bg-panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 4px; overflow: hidden;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding: 60px 32px 50px; text-align: center; border-top: 1px solid var(--line); margin-top: 90px; }
+  .footer-title{ font-family: var(--display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; margin-bottom: 22px; }
+  .footer-title em{ font-style: italic; color: var(--gold); font-weight: 500; }
+  .footer-sub{ color: var(--ink-dim); max-width: 48ch; margin: 0 auto 36px; }
+  .footer-links{ display:flex; justify-content:center; gap: 20px; flex-wrap: wrap; margin-bottom: 60px; }
+  .footer-bottom{ font-family: var(--mono); font-size: 0.76rem; color: var(--ink-dimmer); }
+
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+
+<header>
+  <nav>
+    <button class="brand" data-page="home">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L14 9L21 11L14 13L12 20L10 13L3 11L10 9L12 2Z" stroke="#e8b657" stroke-width="1.4" stroke-linejoin="round"/>
+      </svg>
+      Arnav Gupta
+    </button>
+    <div class="navlinks">
+      <button data-page="home">Home</button>
+      <button data-page="about">About</button>
+      <button data-page="ecosystem">Wizard Ecosystem</button>
+      <button data-page="projects">Projects</button>
+      <button data-page="skills">Skills</button>
+      <button data-page="contact">Contact</button>
+      <a href="/resume" class="nav-cta">Resume</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ================= HOME ================= -->
+  <div class="page active" id="page-home">
+
+    <section class="hero">
+      <canvas id="sparks"></canvas>
+      <svg class="rune-ring" viewBox="0 0 640 640" fill="none">
+        <circle cx="320" cy="320" r="300" stroke="#8266f0" stroke-width="0.6" stroke-dasharray="1 10" opacity="0.6"/>
+        <circle cx="320" cy="320" r="260" stroke="#e8b657" stroke-width="0.6" stroke-dasharray="4 14" opacity="0.4"/>
+        <circle cx="320" cy="320" r="230" stroke="#8266f0" stroke-width="0.5" opacity="0.25"/>
+      </svg>
+      <div class="hero-inner">
+        <div class="eyebrow">Founder · Wizard Ecosystem</div>
+        <h1 class="hero-title">Building AI-powered software from idea to <em>production</em>.</h1>
+        <p class="hero-sub">I'm a student developer who builds real, working software — not class projects. <strong>Wizard Ecosystem</strong> is a full AI platform I designed, built, and shipped on my own: an assistant, browser, search engine, mail client, notes app, automation system, and developer API, all live today.</p>
+        <div class="hero-ctas">
+          <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Explore Wizard Ecosystem →</a>
+          <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">View GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><hr class="rule"></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">12</div><div class="stat-label">Age at launch</div></div>
+      <div class="stat"><div class="stat-num">9</div><div class="stat-label">Integrated apps</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Backend routes</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Desktop platforms</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Languages coded in</div></div>
+    </div>
+    <div class="wrap"><hr class="rule"></div>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-eyebrow">A Different Kind of Portfolio</div>
+          <h2 class="section-title">Not a resume. A <em>working platform</em>.</h2>
+          <p class="section-lede">Most student portfolios showcase assignments. This one showcases a production system with real users, a live API, and a codebase I've maintained for months — architected, built, and deployed entirely on my own.</p>
+        </div>
+        <div class="hero-ctas" style="justify-content:flex-start;">
+          <button class="btn btn-gold-outline" data-page="about">Read my story →</button>
+          <button class="btn btn-secondary" data-page="ecosystem">See the ecosystem →</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ================= ABOUT ================= -->
+  <div class="page" id="page-about">
+    <section>
+      <div class="wrap about">
+        <div class="about-copy">
+          <div class="section-eyebrow">About</div>
+          <h2 class="section-title" style="margin-bottom: 30px;">I started programming by building things I wanted to <em>use</em>.</h2>
+
+          <h3>How it started</h3>
+          <p>In June 2025, I began learning HTML and JavaScript the same way most people start: by building small tools and games for myself, just to see if I could. There was no grand plan for an "ecosystem" at that point — just curiosity, and a habit of finishing what I started.</p>
+          <p>By November 2025, I'd moved into Python, drawn to how quickly it let me turn an idea into something that actually ran. I started building small scripts and automations, then backend logic, then full applications.</p>
+
+          <h3>How it became Wizard</h3>
+          <p>In March 2026, those separate skills came together into <strong>Wizard Ecosystem</strong> — a single, unified platform rather than another one-off project. I didn't want to build "an AI chatbot." I wanted to build the full stack of software a person actually uses in a day: an assistant, a browser, a search engine, email, notes, a calendar, chat, automation, and a developer API — all sharing one account, one design language, and one codebase.</p>
+          <p>Every part of it is mine: the Flask backend with over fifty routes, the eleven-table SQLite schema, the Electron desktop builds for Windows, macOS, and Linux, and the deployment pipeline across PythonAnywhere and GitHub Pages. I designed the architecture, wrote the code, and shipped it to real users — while still in middle school.</p>
+
+          <h3>Beyond the code</h3>
+          <p>Outside of software, I hold a <strong>First-Degree Black Belt in Taekwondo</strong>, earned in April 2026 through ATA's Leadership and Life Skills programs. I play violin in my school orchestra, and I compete in MATHCOUNTS and MathLeague. None of these are separate from how I build software — the same discipline that gets a black belt is what gets a nine-application platform actually shipped, tested, and maintained.</p>
+          <p>I'm currently looking for internships, scholarships, and collaborations where I can put these skills to work on something real.</p>
+        </div>
+
+        <div class="about-card">
+          <h4>Quick Facts</h4>
+          <div class="fact-row"><span class="fact-label">Based in</span><span class="fact-value">Phoenix, AZ</span></div>
+          <div class="fact-row"><span class="fact-label">School</span><span class="fact-value">BASIS Phoenix</span></div>
+          <div class="fact-row"><span class="fact-label">GPA</span><span class="fact-value">4.0</span></div>
+          <div class="fact-row"><span class="fact-label">Languages spoken</span><span class="fact-value">English, Hindi</span></div>
+          <div class="fact-row"><span class="fact-label">Core stack</span><span class="fact-value">Python · JS · Electron</span></div>
+          <div class="fact-row"><span class="fact-label">Black belt</span><span class="fact-value">Taekwondo, 2026</span></div>
+          <div class="fact-row"><span class="fact-label">GitHub</span><span class="fact-value">ag-ultima</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><hr class="rule"></div>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-eyebrow">Journey</div>
+          <h2 class="section-title">From first script to <em>shipped platform</em>.</h2>
+        </div>
+        <div class="timeline">
+          <div class="t-item">
+            <div class="t-date">June 2025</div>
+            <div class="t-desc">Started exploring programming — learning <strong>HTML and JavaScript</strong> by building small tools and games for myself.</div>
+          </div>
+          <div class="t-item">
+            <div class="t-date">November 2025</div>
+            <div class="t-desc">Started learning <strong>Python</strong>, moving from front-end experiments into backend logic and automation.</div>
+          </div>
+          <div class="t-item">
+            <div class="t-date">March 2026</div>
+            <div class="t-desc">Began building <strong>Wizard Ecosystem</strong> — designed the architecture, built all nine applications, and released a public developer API and Python SDK.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= ECOSYSTEM ================= -->
+  <div class="page" id="page-ecosystem">
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-eyebrow">Featured Project</div>
+          <h2 class="section-title">Wizard Ecosystem — a full AI platform, <em>built from scratch</em>.</h2>
+          <p class="section-lede">Nine applications, one account, one shared design language. Every layer — backend, desktop client, deployment — was architected and built by one person, from a blank repository to a live platform with real users.</p>
+        </div>
+
+        <div class="ecosystem-cta">
+          <div class="ecosystem-cta-text">
+            <h3>See it running live</h3>
+            <p>The full platform is deployed and usable right now — no waitlist, no demo video standing in for the real thing.</p>
+          </div>
+          <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
+        </div>
+
+        <div class="app-grid">
+
+          <div class="app-card">
+            <span class="app-icon">🧠</span>
+            <div class="app-name">Wizard AI</div>
+            <div class="app-desc">Multi-agent assistant with seven personalities, a document RAG pipeline for PDFs, spreadsheets, and code files, and nine agent types you can chain into custom workflows.</div>
+            <div class="app-tags"><span class="tag">Flask</span><span class="tag">Groq / Llama 4</span><span class="tag">SSE</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">📝</span>
+            <div class="app-name">Wizard Notes</div>
+            <div class="app-desc">AI-powered note-taking with a full editing suite — grammar fix, summarize, format, translate, and expand — plus real-time sharing and permissions.</div>
+            <div class="app-tags"><span class="tag">SQLite</span><span class="tag">Auto-save</span><span class="tag">Sharing</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">🤖</span>
+            <div class="app-name">Wizard Autopilot</div>
+            <div class="app-desc">Full computer automation from plain-language commands — cursor control, typing, screenshots, and file creation across Windows, macOS, and Linux.</div>
+            <div class="app-tags"><span class="tag">Electron</span><span class="tag">PowerShell</span><span class="tag">xdotool</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">🌐</span>
+            <div class="app-name">Wizard Browser</div>
+            <div class="app-desc">A full desktop browser with multi-tab workspaces, a built-in password manager, and an ad blocker — Default, Work, School, and Media profiles.</div>
+            <div class="app-tags"><span class="tag">Electron</span><span class="tag">Node.js</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">🔍</span>
+            <div class="app-name">Wizard Search</div>
+            <div class="app-desc">An AI-powered search engine with live autocomplete and a short, AI-generated topic summary for every query.</div>
+            <div class="app-tags"><span class="tag">DuckDuckGo</span><span class="tag">Llama 4</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">📧</span>
+            <div class="app-name">Wizard Mail</div>
+            <div class="app-desc">A full email client over IMAP/SMTP with threaded replies, folder sync, and instant @wizardecosystem.dpdns.org address provisioning.</div>
+            <div class="app-tags"><span class="tag">IMAP</span><span class="tag">Cloudflare</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">📅</span>
+            <div class="app-name">Wizard Calendar</div>
+            <div class="app-desc">Month and week views with color-coded events and overlap detection, synced to your Wizard profile across every app.</div>
+            <div class="app-tags"><span class="tag">SQLite</span><span class="tag">JS dates</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">💬</span>
+            <div class="app-name">Wizard Chat</div>
+            <div class="app-desc">Real-time messaging with typing indicators and read receipts, built on a lightweight, tab-focus-aware polling architecture.</div>
+            <div class="app-tags"><span class="tag">SQLite</span><span class="tag">Polling</span></div>
+          </div>
+
+          <div class="app-card">
+            <span class="app-icon">💻</span>
+            <div class="app-name">Developer Hub &amp; API</div>
+            <div class="app-desc">An OpenAI-compatible REST API with bearer-token authentication, published as a Python SDK on PyPI — <code>wizard-ai-pro</code>.</div>
+            <div class="app-tags"><span class="tag">REST</span><span class="tag">PyPI</span></div>
+          </div>
+
+        </div>
+
+        <div class="architecture-note">
+          <h4>Architecture &amp; Infrastructure</h4>
+          <p>A Flask backend handles over fifty routes across an eleven-table SQLite schema — users, chats, memory, calendar events, uploaded files, API keys, personalities, agents, chains, email aliases, and conversations — all tied together through a shared profile system.</p>
+          <p>The frontend ships two ways: as static pages on GitHub Pages for the browser experience, and as native Electron installers — NSIS for Windows, DMG for macOS, and AppImage for Linux — with auto-updates through GitHub Releases. Streaming responses run over Server-Sent Events, sessions use HTTP-only, SameSite=None, Secure cookies, and CORS is scoped to the ecosystem's own domains.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= PROJECTS ================= -->
+  <div class="page" id="page-projects">
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-eyebrow">Other Projects</div>
+          <h2 class="section-title">Smaller builds, <em>same habit of shipping</em>.</h2>
+          <p class="section-lede">Before Wizard Ecosystem, there were smaller, standalone projects — each one a step toward being comfortable designing, building, and deploying something from start to finish.</p>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <span class="proj-date">January 2026</span>
+            <div class="proj-title">A&amp;A Web Studio</div>
+            <div class="proj-desc">A responsive static portfolio site with structured navigation and an integrated contact form, designed and deployed independently — an early exercise in web design and client-facing presentation.</div>
+            <a href="https://aaweb.neocities.org" class="proj-link" target="_blank" rel="noopener">aaweb.neocities.org →</a>
+          </div>
+          <div class="proj-card">
+            <span class="proj-date">November 2025</span>
+            <div class="proj-title">Ultimate Clicker</div>
+            <div class="proj-desc">A browser-based incremental game with score tracking, multipliers, level progression, and an upgrade shop — built to practice game-loop logic and persistent state in vanilla JavaScript.</div>
+            <a href="https://ultimate-clicker.w3spaces.com" class="proj-link" target="_blank" rel="noopener">ultimate-clicker.w3spaces.com →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= SKILLS ================= -->
+  <div class="page" id="page-skills">
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-eyebrow">Skills</div>
+          <h2 class="section-title">The <em>toolkit</em> behind it.</h2>
+          <p class="section-lede">Everything below has shipped in a live application — none of it is untested classroom knowledge.</p>
+        </div>
+        <div class="skill-groups">
+          <div class="skill-group">
+            <h4>Development</h4>
+            <ul>
+              <li>Python</li>
+              <li>JavaScript</li>
+              <li>Java</li>
+              <li>HTML / CSS</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4>Frameworks</h4>
+            <ul>
+              <li>Flask</li>
+              <li>Electron</li>
+              <li>Node.js</li>
+              <li>SQLAlchemy</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4>AI</h4>
+            <ul>
+              <li>RAG pipelines</li>
+              <li>LLM APIs</li>
+              <li>Prompt engineering</li>
+              <li>Multi-agent systems</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4>Deployment</h4>
+            <ul>
+              <li>PythonAnywhere</li>
+              <li>GitHub Pages</li>
+              <li>Cloudflare</li>
+              <li>Electron Builder</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="credentials">
+          <div class="section-head" style="margin-bottom: 32px;">
+            <div class="section-eyebrow">Credentials &amp; Recognition</div>
+            <h2 class="section-title" style="font-size: clamp(1.5rem, 2.6vw, 2rem);">Competitions, awards, and academics.</h2>
+          </div>
+          <div class="cred-grid">
+            <div class="cred-block">
+              <h4>Mathematics</h4>
+              <ul>
+                <li><strong>MathLeague</strong> — 4th place (Qualifier, Dec 2024); 9th place (District, Feb 2025); 11th place (State, May 2025)</li>
+                <li><strong>MATHCOUNTS</strong> Charter Competition — Top 20% of 200+ participants (Feb 2025)</li>
+                <li><strong>Purple Comet Math Meet</strong> — International Competition (Mar 2025)</li>
+              </ul>
+            </div>
+            <div class="cred-block">
+              <h4>Science &amp; Technology</h4>
+              <ul>
+                <li>BASIS Phoenix Science Fair (Feb 2026)</li>
+                <li>Frostbyte Hackathon (Feb 2026)</li>
+                <li>Code Arizona Hackathon (Aug 2026)</li>
+              </ul>
+            </div>
+            <div class="cred-block">
+              <h4>Academics</h4>
+              <ul>
+                <li><strong>BASIS Phoenix</strong> — GPA 4.0, Distinguished Honour Roll (Top 5%)</li>
+                <li><strong>BASIS Phoenix Primary</strong> — GPA 4.0, Distinguished Honour Roll, Integrity Award</li>
+              </ul>
+            </div>
+            <div class="cred-block">
+              <h4>Taekwondo &amp; Arts</h4>
+              <ul>
+                <li><strong>First-Degree Black Belt</strong>, ATA Martial Arts (April 2026)</li>
+                <li>1st Place Traditional Forms, 3rd Place Combat Sparring — Yellow Belt tournament</li>
+                <li>Violin, Orchestra — BASIS Phoenix (2024–Present)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= CONTACT ================= -->
+  <div class="page" id="page-contact">
+    <section>
+      <div class="wrap">
+        <div class="section-head" style="text-align:center; max-width: 60ch; margin-left:auto; margin-right:auto;">
+          <div class="section-eyebrow">Contact</div>
+          <h2 class="section-title">Let's build something <em>real</em>.</h2>
+          <p class="section-lede" style="margin-left:auto; margin-right:auto;">Open to internships, scholarships, and collaborations where I can put these tools to work. Send a message below, or reach me directly.</p>
+        </div>
+
+        <div class="hero-ctas" style="margin-bottom: 48px;">
+          <a href="mailto:ag@wizardecosystem.dpdns.org" class="btn btn-secondary">Email me</a>
+          <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
+        </div>
+
+        <div class="contact-form-shell">
+          <iframe
+            id="JotFormIFrame-261870337867065"
+            title="Contact Me"
+            onload="window.parent.scrollTo(0,0)"
+            allowtransparency="true"
+            allow="geolocation; microphone; camera; fullscreen; payment"
+            src="https://form.jotform.com/261870337867065"
+            frameborder="0"
+            style="min-width:100%;max-width:100%;height:539px;border:none;"
+            scrolling="no"
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-bottom">© 2026 Arnav Gupta · Built with vanilla HTML, CSS &amp; JS</div>
+    </footer>
+  </div>
+
+</main>
+
+<script>
+  // ---- Page router (hash-based, single file) ----
+  (function(){
+    const pages = ['home','about','ecosystem','projects','skills','contact'];
+    const navButtons = document.querySelectorAll('[data-page]');
+
+    function showPage(name){
+      if (!pages.includes(name)) name = 'home';
+      pages.forEach(p => {
+        document.getElementById('page-' + p).classList.toggle('active', p === name);
+      });
+      navButtons.forEach(btn => {
+        if (btn.closest('.navlinks')){
+          btn.classList.toggle('active', btn.dataset.page === name);
+        }
+      });
+      window.scrollTo(0, 0);
+      history.replaceState(null, '', '#' + name);
+    }
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => showPage(btn.dataset.page));
+    });
+
+    window.addEventListener('hashchange', () => {
+      showPage(location.hash.replace('#', ''));
+    });
+
+    showPage(location.hash ? location.hash.replace('#', '') : 'home');
+  })();
+
+  // ---- Ambient spark particles in the hero canvas ----
+  (function(){
+    const canvas = document.getElementById('sparks');
+    const ctx = canvas.getContext('2d');
+    const hero = document.querySelector('.hero');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function resize(){
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    if (reduceMotion) return;
+
+    const COLORS = ['#e8b657', '#8266f0'];
+    const N = 34;
+    const particles = Array.from({length: N}, () => spawn());
+
+    function spawn(){
+      return {
+        x: Math.random() * canvas.width,
+        y: canvas.height + Math.random() * 60,
+        r: Math.random() * 1.6 + 0.4,
+        speed: Math.random() * 0.35 + 0.12,
+        drift: (Math.random() - 0.5) * 0.3,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        alpha: Math.random() * 0.5 + 0.2,
+        flicker: Math.random() * Math.PI * 2
+      };
+    }
+
+    function tick(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles){
+        p.y -= p.speed;
+        p.x += p.drift;
+        p.flicker += 0.02;
+        const a = p.alpha * (0.6 + 0.4 * Math.sin(p.flicker));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = a;
+        ctx.fill();
+        if (p.y < -20){
+          Object.assign(p, spawn(), { y: canvas.height + 10 });
+        }
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(tick);
+    }
+    tick();
+  })();
+</script>
+
+<script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+<script>
+  window.jotformEmbedHandler("iframe[id='JotFormIFrame-261870337867065']", "https://form.jotform.com/");
+</script>
+
+</body>
+</html>
