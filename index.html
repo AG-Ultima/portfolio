@@ -22,30 +22,13 @@
     --gold-dim: #b3893c;
     --violet: #8266f0;
     --violet-glow: rgba(130, 102, 240, 0.35);
+    --header-bg: rgba(11, 7, 20, 0.72);
     --display: 'Fraunces', serif;
     --body: 'Inter', -apple-system, sans-serif;
     --mono: 'JetBrains Mono', monospace;
   }
 
-  html[data-theme="light"]{
-    --bg: #f6f2ec;
-    --bg-panel: #ffffff;
-    --bg-panel-2: #f1e9fb;
-    --line: rgba(60, 40, 90, 0.12);
-    --ink: #241a35;
-    --ink-dim: #5c4d78;
-    --ink-dimmer: #8577a0;
-    --gold: #b3822f;
-    --gold-dim: #8f6a26;
-    --violet: #6845e0;
-    --violet-glow: rgba(104, 69, 224, 0.18);
-  }
-  html[data-theme="light"] .bg-texture{
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(104,69,224,0.10), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(179,130,47,0.07), transparent 60%),
-      var(--bg);
-  }
+  html[data-theme="light"]{ --header-bg: rgba(246, 241, 231, 0.78); }
   html[data-theme="light"] .rune-ring{ opacity: 0.3; }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -103,11 +86,19 @@
       var(--bg);
   }
 
+  /* ---------- SCROLL PROGRESS ---------- */
+  #scroll-progress{
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--violet), var(--gold));
+    z-index: 200; transition: width 0.1s ease-out;
+    box-shadow: 0 0 8px var(--violet-glow);
+  }
+
   /* ---------- NAV ---------- */
   header{
     position: sticky; top: 0; z-index: 100;
     backdrop-filter: blur(12px);
-    background: rgba(11, 7, 20, 0.72);
+    background: var(--header-bg);
     border-bottom: 1px solid var(--line);
   }
   nav{
@@ -148,7 +139,7 @@
     padding: 7px 14px; border-radius: 3px; margin-left: 10px;
     transition: all 0.2s ease; white-space: nowrap;
   }
-  .nav-cta:hover{ background: var(--gold); color: #1a1206; }
+  .nav-cta:hover{ background: var(--gold); color: #1a1206; transform: scale(1.05); }
   .theme-toggle{
     width: 34px; height: 34px;
     display: inline-flex; align-items:center; justify-content:center;
@@ -186,13 +177,51 @@
     display:flex; flex-direction: column; align-items: center; text-align: center;
     min-height: 82vh; justify-content: center;
   }
-  #sparks{ position:absolute; inset:0; z-index: 0; pointer-events:none; }
+  #sparks{ position: fixed; inset:0; z-index: -1; pointer-events:none; }
+
+  .floating-orbs{ position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .orb{
+    position: absolute; border-radius: 50%;
+    filter: blur(60px); opacity: 0.35;
+    will-change: transform;
+  }
+  .orb-1{
+    width: 420px; height: 420px; left: -100px; top: 10%;
+    background: radial-gradient(circle, var(--violet), transparent 70%);
+    animation: drift-1 22s ease-in-out infinite;
+  }
+  .orb-2{
+    width: 360px; height: 360px; right: -120px; top: 45%;
+    background: radial-gradient(circle, var(--gold), transparent 70%);
+    animation: drift-2 26s ease-in-out infinite;
+  }
+  .orb-3{
+    width: 300px; height: 300px; left: 30%; bottom: -100px;
+    background: radial-gradient(circle, var(--violet), transparent 70%);
+    animation: drift-3 30s ease-in-out infinite;
+  }
+  @keyframes drift-1{
+    0%,100%{ transform: translate(0, 0); }
+    50%{ transform: translate(80px, 60px); }
+  }
+  @keyframes drift-2{
+    0%,100%{ transform: translate(0, 0); }
+    50%{ transform: translate(-70px, -50px); }
+  }
+  @keyframes drift-3{
+    0%,100%{ transform: translate(0, 0); }
+    50%{ transform: translate(50px, -70px); }
+  }
   .rune-ring{
     position:absolute; top: 50%; left: 50%; width: 640px; height: 640px;
     transform: translate(-50%, -50%); opacity: 0.5; z-index: 0;
-    animation: spin 120s linear infinite;
+    animation: spin 90s linear infinite, breathe-glow 4s ease-in-out infinite;
   }
   @keyframes spin{ to{ transform: translate(-50%,-50%) rotate(360deg); } }
+  @keyframes breathe-glow{
+    0%,100%{ filter: drop-shadow(0 0 6px rgba(130,102,240,0.25)); }
+    50%{ filter: drop-shadow(0 0 22px rgba(232,182,87,0.35)); }
+  }
   .hero-inner{ position: relative; z-index: 2; }
 
   .eyebrow{
@@ -210,8 +239,15 @@
     font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.05;
     letter-spacing: -0.01em; max-width: 16ch; margin: 0 auto 26px;
   }
-  h1.hero-title em{ font-style: italic; font-weight: 500; color: var(--gold); }
-  .type-cursor{ font-weight: 300; animation: blink 0.9s step-end infinite; }
+  h1.hero-title em{
+    font-style: italic; font-weight: 500;
+    background: linear-gradient(100deg, var(--gold) 20%, #f7dba0 40%, var(--gold) 60%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 3.5s linear infinite;
+  }
+  @keyframes shimmer{ to{ background-position: -200% center; } }
+  .type-cursor{ font-weight: 300; color: var(--gold); animation: blink 0.9s step-end infinite; }
   @keyframes blink{ 50%{ opacity: 0; } }
   .type-cursor{
     display: inline-block;
@@ -225,13 +261,38 @@
   .hero-sub strong{ color: var(--ink); font-weight: 600; }
 
   .hero-ctas{ display:flex; gap: 16px; justify-content:center; flex-wrap: wrap; }
+  #cursor-glow{
+    position:absolute; width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, var(--violet-glow), transparent 70%);
+    pointer-events: none; z-index: 1;
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity 0.4s ease;
+    filter: blur(4px);
+  }
+  .hero:hover #cursor-glow{ opacity: 0.7; }
+
   .btn{
     font-family: var(--mono); font-size: 0.85rem; padding: 13px 26px;
     border-radius: 3px; border: 1px solid var(--line); transition: all 0.2s ease;
     display:inline-flex; align-items:center; gap: 8px; cursor: pointer;
     background: none; color: var(--ink);
+    position: relative; overflow: hidden;
   }
-  .btn-primary{ background: var(--gold); color: #1a1206; border-color: var(--gold); font-weight: 500; }
+  .btn::before{
+    content:''; position:absolute; top:0; left:-120%; width: 60%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+  }
+  .btn:hover::before{ left: 130%; }
+  .btn-primary{
+    background: var(--gold); color: #1a1206; border-color: var(--gold); font-weight: 500;
+    animation: btn-glow 3s ease-in-out infinite;
+  }
+  @keyframes btn-glow{
+    0%,100%{ box-shadow: 0 0 0 rgba(232,182,87,0); }
+    50%{ box-shadow: 0 0 18px rgba(232,182,87,0.35); }
+  }
   .btn-primary:hover{ background: #f3c56a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,182,87,0.25); }
   .btn-secondary{ color: var(--ink); background: rgba(255,255,255,0.02); }
   .btn-secondary:hover{ border-color: var(--violet); background: rgba(130,102,240,0.08); }
@@ -250,7 +311,13 @@
     font-family: var(--display); font-size: clamp(1.9rem, 3.6vw, 2.8rem);
     font-weight: 600; line-height: 1.15;
   }
-  .section-title em{ font-style: italic; color: var(--gold); font-weight: 500; }
+  .section-title em, .footer-title em{
+    font-style: italic; font-weight: 500;
+    background: linear-gradient(100deg, var(--gold) 20%, #f7dba0 40%, var(--gold) 60%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 3.5s linear infinite;
+  }
   .section-lede{ color: var(--ink-dim); font-size: 1.05rem; margin-top: 18px; max-width: 64ch; }
 
   /* ---------- SCROLL REVEAL ---------- */
@@ -298,10 +365,25 @@
   }
   .about-copy h3:first-child{ margin-top: 0; }
 
+  .pull-quote{
+    position: relative;
+    font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: 1.5rem; line-height: 1.4; color: var(--ink);
+    padding: 12px 0 12px 40px; margin: 36px 0;
+    border-left: 2px solid var(--gold-dim);
+  }
+  .quote-mark{
+    position: absolute; left: 4px; top: -18px;
+    font-family: var(--display); font-size: 3.5rem; font-style: normal;
+    color: var(--gold); opacity: 0.35; line-height: 1;
+  }
+
   .about-card{
     background: var(--bg-panel); border: 1px solid var(--line);
     border-radius: 6px; padding: 28px; position: sticky; top: 100px;
+    animation: float-card 5s ease-in-out infinite;
   }
+  @keyframes float-card{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
   .about-card h4{
     font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 18px;
@@ -320,7 +402,8 @@
   .stat{ padding: 40px 24px; text-align:center; border-right: 1px solid var(--line); }
   .stat:last-child{ border-right: none; }
   @media (max-width: 800px){ .stat:nth-child(2n){ border-right: none; } }
-  .stat-num{ font-family: var(--display); font-size: 2.6rem; font-weight: 600; color: var(--gold); line-height: 1; }
+  .stat-num{ font-family: var(--display); font-size: 2.6rem; font-weight: 600; color: var(--gold); line-height: 1; transition: text-shadow 0.3s ease; }
+  .stat:hover .stat-num{ text-shadow: 0 0 18px var(--gold-dim); }
   .stat-label{ font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dimmer); margin-top: 10px; letter-spacing: 0.02em; }
 
   /* ---------- TIMELINE ---------- */
@@ -328,12 +411,24 @@
   .timeline::before{
     content:''; position:absolute; left: 5px; top: 6px; bottom: 6px; width: 1px;
     background: linear-gradient(var(--violet), var(--gold)); opacity: 0.4;
+    transform: scaleY(0); transform-origin: top;
+    transition: transform 1.3s cubic-bezier(0.16,1,0.3,1) 0.15s;
   }
+  .timeline.in-view::before{ transform: scaleY(1); }
   .t-item{ position: relative; padding-bottom: 40px; }
   .t-item:last-child{ padding-bottom: 0; }
   .t-item::before{
     content:''; position:absolute; left: -32px; top: 4px; width: 11px; height: 11px;
     border-radius: 50%; background: var(--bg); border: 2px solid var(--gold);
+    box-shadow: 0 0 0 0 rgba(232,182,87,0.45);
+    animation: dot-pulse 2.8s ease-out infinite;
+  }
+  .t-item:nth-child(2)::before{ animation-delay: 0.4s; }
+  .t-item:nth-child(3)::before{ animation-delay: 0.8s; }
+  @keyframes dot-pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(232,182,87,0.45); }
+    70%{ box-shadow: 0 0 0 9px rgba(232,182,87,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(232,182,87,0); }
   }
   .t-date{ font-family: var(--mono); color: var(--gold); font-size: 0.85rem; margin-bottom: 6px; letter-spacing: 0.04em; }
   .t-desc{ color: var(--ink-dim); font-size: 0.98rem; max-width: 62ch; }
@@ -341,10 +436,22 @@
 
   /* ---------- ECOSYSTEM ---------- */
   .ecosystem-cta{
+    position: relative;
     display:flex; align-items:center; justify-content:space-between; gap: 24px;
-    background: var(--bg-panel); border: 1px solid var(--violet); border-radius: 8px;
+    background: var(--bg-panel); border: 1px solid transparent; border-radius: 8px;
     padding: 32px 36px; margin-bottom: 56px; flex-wrap: wrap;
+    isolation: isolate;
   }
+  .ecosystem-cta::before{
+    content:''; position: absolute; inset: -1px; border-radius: 8px; padding: 1px;
+    background: conic-gradient(from var(--glow-angle, 0deg), var(--violet), var(--gold), var(--violet));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    z-index: -1;
+    animation: rotate-glow 6s linear infinite;
+  }
+  @property --glow-angle{ syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+  @keyframes rotate-glow{ to{ --glow-angle: 360deg; } }
   .ecosystem-cta-text h3{ font-family: var(--display); font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
   .ecosystem-cta-text p{ color: var(--ink-dim); font-size: 0.96rem; }
 
@@ -363,8 +470,21 @@
     background: var(--bg-panel-2);
     box-shadow: 0 16px 40px rgba(130,102,240,0.16), 0 0 0 1px rgba(130,102,240,0.1);
   }
-  .app-icon{ font-size: 1.5rem; margin-bottom: 14px; display:block; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-  .app-card:hover .app-icon{ transform: scale(1.18) rotate(-4deg); }
+  .app-icon{
+    font-size: 1.5rem; margin-bottom: 14px; display:block;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    animation: icon-float 3.2s ease-in-out infinite;
+  }
+  .app-card:hover .app-icon{ transform: scale(1.18) rotate(-4deg); animation-play-state: paused; }
+  @keyframes icon-float{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-5px); } }
+  .app-card:nth-child(2) .app-icon{ animation-delay: 0.3s; }
+  .app-card:nth-child(3) .app-icon{ animation-delay: 0.6s; }
+  .app-card:nth-child(4) .app-icon{ animation-delay: 0.9s; }
+  .app-card:nth-child(5) .app-icon{ animation-delay: 1.2s; }
+  .app-card:nth-child(6) .app-icon{ animation-delay: 1.5s; }
+  .app-card:nth-child(7) .app-icon{ animation-delay: 1.8s; }
+  .app-card:nth-child(8) .app-icon{ animation-delay: 2.1s; }
+  .app-card:nth-child(9) .app-icon{ animation-delay: 2.4s; }
   .app-name{ font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
   .app-desc{ color: var(--ink-dim); font-size: 0.92rem; margin-bottom: 16px; }
   .app-tags{ display:flex; flex-wrap: wrap; gap: 6px; }
@@ -395,7 +515,12 @@
   .proj-title{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
   .proj-date{ font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dimmer); margin-bottom: 14px; display:block; }
   .proj-desc{ color: var(--ink-dim); font-size: 0.94rem; margin-bottom: 18px; }
-  .proj-link{ font-family: var(--mono); font-size: 0.8rem; color: var(--violet); border-bottom: 1px solid transparent; }
+  .proj-link{
+    font-family: var(--mono); font-size: 0.8rem; color: var(--violet); border-bottom: 1px solid transparent;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: gap 0.25s ease, border-color 0.2s ease;
+  }
+  .proj-link:hover{ gap: 8px; }
   .proj-link:hover{ border-color: var(--violet); }
 
   /* ---------- SKILLS ---------- */
@@ -406,7 +531,12 @@
     letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 16px;
   }
   .skill-group ul{ list-style: none; }
-  .skill-group li{ color: var(--ink-dim); font-size: 0.92rem; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .skill-group li{
+    color: var(--ink-dim); font-size: 0.92rem; padding: 7px 0 7px 0; border-bottom: 1px solid var(--line);
+    transition: padding-left 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    border-left: 2px solid transparent;
+  }
+  .skill-group li:hover{ padding-left: 10px; color: var(--ink); border-left-color: var(--gold); }
   .skill-group li:last-child{ border-bottom: none; }
 
   .credentials{ margin-top: 70px; }
@@ -418,23 +548,36 @@
   }
   .cred-block ul{ list-style: none; }
   .cred-block li{
-    color: var(--ink-dim); font-size: 0.92rem; padding: 10px 0;
+    color: var(--ink-dim); font-size: 0.92rem; padding: 10px 0 10px 0;
     border-bottom: 1px solid var(--line);
+    border-left: 2px solid transparent;
+    transition: padding-left 0.25s ease, border-color 0.25s ease, background 0.25s ease;
   }
+  .cred-block li:hover{ padding-left: 10px; border-left-color: var(--violet); background: rgba(130,102,240,0.04); }
   .cred-block li:last-child{ border-bottom: none; }
   .cred-block li strong{ color: var(--ink); font-weight: 600; }
 
   /* ---------- CONTACT ---------- */
   .contact-form-shell{
+    position: relative;
     max-width: 720px; margin: 0 auto;
-    background: var(--bg-panel); border: 1px solid var(--line);
-    border-radius: 8px; padding: 4px; overflow: hidden;
+    background: var(--bg-panel); border: 1px solid transparent;
+    border-radius: 8px; padding: 4px;
+    isolation: isolate;
+  }
+  .contact-form-shell::before{
+    content:''; position: absolute; inset: -1px; border-radius: 8px; padding: 1px;
+    background: conic-gradient(from var(--glow-angle, 0deg), var(--gold), var(--violet), var(--gold));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    z-index: -1;
+    animation: rotate-glow 6s linear infinite;
+    pointer-events: none;
   }
 
   /* ---------- FOOTER ---------- */
   footer{ padding: 60px 32px 50px; text-align: center; border-top: 1px solid var(--line); margin-top: 90px; }
   .footer-title{ font-family: var(--display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; margin-bottom: 22px; }
-  .footer-title em{ font-style: italic; color: var(--gold); font-weight: 500; }
   .footer-sub{ color: var(--ink-dim); max-width: 48ch; margin: 0 auto 36px; }
   .footer-links{ display:flex; justify-content:center; gap: 20px; flex-wrap: wrap; margin-bottom: 60px; }
   .footer-bottom{ font-family: var(--mono); font-size: 0.76rem; color: var(--ink-dimmer); }
@@ -443,7 +586,14 @@
 </head>
 <body>
 
+<div id="scroll-progress"></div>
+<canvas id="sparks"></canvas>
 <div class="bg-texture"></div>
+<div class="floating-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
 
 <header>
   <nav>
@@ -473,7 +623,7 @@
   <div class="page active" id="page-home">
 
     <section class="hero">
-      <canvas id="sparks"></canvas>
+      <div id="cursor-glow"></div>
       <svg class="rune-ring" viewBox="0 0 640 640" fill="none">
         <circle cx="320" cy="320" r="300" stroke="#8266f0" stroke-width="0.6" stroke-dasharray="1 10" opacity="0.6"/>
         <circle cx="320" cy="320" r="260" stroke="#e8b657" stroke-width="0.6" stroke-dasharray="4 14" opacity="0.4"/>
@@ -481,8 +631,8 @@
       </svg>
       <div class="hero-inner">
         <div class="eyebrow">Founder · Wizard Ecosystem</div>
-        <h1 class="hero-title">Building AI-powered software from idea to <em><span id="type-target"></span><span class="type-cursor">|</span></em></h1>
-        <p class="hero-sub">I'm a student developer who builds real, working software — not class projects. <strong>Wizard Ecosystem</strong> is a full AI platform I designed, built, and shipped on my own: an assistant, browser, search engine, mail client, notes app, automation system, and developer API, all live today.</p>
+        <h1 class="hero-title">Student Developer &amp; <em><span id="type-target"></span><span class="type-cursor">|</span></em></h1>
+        <p class="hero-sub">Most of my age group is learning to code. I've been shipping to production. <strong>Wizard Ecosystem</strong> is a nine-app AI platform — assistant, browser, search engine, mail, notes, automation, chat, calendar, and a developer API — designed, built, and deployed by one person, live today.</p>
         <div class="hero-ctas">
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Explore Wizard Ecosystem →</a>
           <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">View GitHub</a>
@@ -505,7 +655,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">A Different Kind of Portfolio</div>
           <h2 class="section-title">Not a resume. A <em>working platform</em>.</h2>
-          <p class="section-lede">Most student portfolios showcase assignments. This one showcases a production system with real users, a live API, and a codebase I've maintained for months — architected, built, and deployed entirely on my own.</p>
+          <p class="section-lede">Most student portfolios showcase assignments turned in for a grade. This one showcases a production system: real users, a public API, an eleven-table database, and a codebase I've kept running for months — architected, written, and deployed without a team.</p>
         </div>
         <div class="hero-ctas" style="justify-content:flex-start;">
           <button class="btn btn-gold-outline" data-page="about">Read my story →</button>
@@ -525,16 +675,22 @@
           <h2 class="section-title" style="margin-bottom: 30px;">I started programming by building things I wanted to <em>use</em>.</h2>
 
           <h3>How it started</h3>
-          <p>In June 2025, I began learning HTML and JavaScript the same way most people start: by building small tools and games for myself, just to see if I could. There was no grand plan for an "ecosystem" at that point — just curiosity, and a habit of finishing what I started.</p>
-          <p>By November 2025, I'd moved into Python, drawn to how quickly it let me turn an idea into something that actually ran. I started building small scripts and automations, then backend logic, then full applications.</p>
+          <p>In June 2025, I picked up HTML and JavaScript the way most people start: building small tools and games just to see if I could. There was no plan for an "ecosystem" yet — just curiosity, and a habit of actually finishing what I started.</p>
+          <p>By November 2025, I'd moved into Python — drawn to how fast it let me turn an idea into something that ran. Scripts and automations came first, then backend logic, then full applications.</p>
 
           <h3>How it became Wizard</h3>
-          <p>In March 2026, those separate skills came together into <strong>Wizard Ecosystem</strong> — a single, unified platform rather than another one-off project. I didn't want to build "an AI chatbot." I wanted to build the full stack of software a person actually uses in a day: an assistant, a browser, a search engine, email, notes, a calendar, chat, automation, and a developer API — all sharing one account, one design language, and one codebase.</p>
-          <p>Every part of it is mine: the Flask backend with over fifty routes, the eleven-table SQLite schema, the Electron desktop builds for Windows, macOS, and Linux, and the deployment pipeline across PythonAnywhere and GitHub Pages. I designed the architecture, wrote the code, and shipped it to real users — while still in middle school.</p>
+          <p>In March 2026, those separate skills folded into <strong>Wizard Ecosystem</strong> — one unified platform instead of another one-off project. I wasn't interested in building "an AI chatbot." I wanted the full stack of software a person actually opens in a day: an assistant, a browser, a search engine, email, notes, a calendar, chat, automation, and a developer API, all sharing one account and one codebase.</p>
+
+          <blockquote class="pull-quote reveal">
+            <span class="quote-mark">"</span>
+            I wasn't interested in building another chatbot — I wanted the whole stack of software a person actually opens in a day.
+          </blockquote>
+
+          <p>Every piece is mine: the Flask backend running fifty-plus routes, the eleven-table SQLite schema behind it, the Electron builds for Windows, macOS, and Linux, and the deployment pipeline across PythonAnywhere and GitHub Pages. Architecture, code, and shipping — while still in middle school.</p>
 
           <h3>Beyond the code</h3>
-          <p>Outside of software, I hold a <strong>First-Degree Black Belt in Taekwondo</strong>, earned in April 2026 through ATA's Leadership and Life Skills programs. I play violin in my school orchestra, and I compete in MATHCOUNTS and MathLeague. None of these are separate from how I build software — the same discipline that gets a black belt is what gets a nine-application platform actually shipped, tested, and maintained.</p>
-          <p>I'm currently looking for internships, scholarships, and collaborations where I can put these skills to work on something real.</p>
+          <p>Off-screen, I hold a <strong>First-Degree Black Belt in Taekwondo</strong>, earned in April 2026 through ATA's Leadership and Life Skills programs. I play violin in my school orchestra and compete in MATHCOUNTS and MathLeague. None of it is really separate — the discipline that earns a black belt is the same discipline that keeps a nine-application platform running, tested, and maintained.</p>
+          <p>I'm currently looking for internships, scholarships, and collaborations where these skills can go to work on something that matters.</p>
         </div>
 
         <div class="about-card">
@@ -583,8 +739,13 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">Featured Project</div>
           <h2 class="section-title">Wizard Ecosystem — a full AI platform, <em>built from scratch</em>.</h2>
-          <p class="section-lede">Nine applications, one account, one shared design language. Every layer — backend, desktop client, deployment — was architected and built by one person, from a blank repository to a live platform with real users.</p>
+          <p class="section-lede">Nine applications, one account, one shared design language. Backend, desktop client, and deployment pipeline — every layer architected and built by one person, from an empty repository to a platform with real users.</p>
         </div>
+
+        <blockquote class="pull-quote reveal" style="max-width: 60ch;">
+          <span class="quote-mark">"</span>
+          Nine applications. One account. One person.
+        </blockquote>
 
         <div class="ecosystem-cta reveal">
           <div class="ecosystem-cta-text">
@@ -677,7 +838,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">Other Projects</div>
           <h2 class="section-title">Smaller builds, <em>same habit of shipping</em>.</h2>
-          <p class="section-lede">Before Wizard Ecosystem, there were smaller, standalone projects — each one a step toward being comfortable designing, building, and deploying something from start to finish.</p>
+          <p class="section-lede">Before Wizard Ecosystem, there were smaller, standalone builds — each one another rep at designing, shipping, and finishing something from start to finish.</p>
         </div>
         <div class="proj-grid reveal-stagger">
           <div class="proj-card">
@@ -934,11 +1095,60 @@
     }, 100);
   })();
 
+  // ---- Scroll progress bar ----
+  (function(){
+    const bar = document.getElementById('scroll-progress');
+    function update(){
+      const h = document.documentElement;
+      const scrollable = h.scrollHeight - h.clientHeight;
+      const pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
+      bar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    // Recompute after page switches (content height changes)
+    const obs = new MutationObserver(() => setTimeout(update, 60));
+    document.querySelectorAll('.page').forEach(p => obs.observe(p, { attributes: true, attributeFilter: ['class'] }));
+  })();
+
+  // ---- Cursor-follow glow in hero ----
+  (function(){
+    const hero = document.querySelector('.hero');
+    const glow = document.getElementById('cursor-glow');
+    if (!hero || !glow) return;
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      glow.style.left = (e.clientX - r.left) + 'px';
+      glow.style.top = (e.clientY - r.top) + 'px';
+    });
+  })();
+
+  // ---- Subtle 3D tilt on cards ----
+  (function(){
+    const motionOff = () => document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
+    const cards = document.querySelectorAll('.app-card, .proj-card');
+    cards.forEach(card => {
+      card.style.transformStyle = 'preserve-3d';
+      card.addEventListener('mousemove', (e) => {
+        if (motionOff()) return;
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  })();
+
   // ---- Typewriter effect for hero headline ----
   (function(){
     const el = document.getElementById('type-target');
     if (!el) return;
-    const phrases = ['production.', 'real users.', 'the App Store.', 'GitHub Pages.', 'a live API.'];
+    const phrases = ['Founder.', 'Black Belt.', 'Math Competitor.', 'Violinist.', 'Builder.'];
     const motionOff = () => document.documentElement.dataset.motion === 'off' ||
       (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
 
@@ -1021,17 +1231,16 @@
     }
   })();
 
-  // ---- Ambient spark particles in the hero canvas ----
+  // ---- Ambient spark particles — persistent full-page background ----
   (function(){
     const canvas = document.getElementById('sparks');
     const ctx = canvas.getContext('2d');
-    const hero = document.querySelector('.hero');
     const reduceMotion = document.documentElement.dataset.motion === 'off' ||
       (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
 
     function resize(){
-      canvas.width = hero.offsetWidth;
-      canvas.height = hero.offsetHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
     resize();
     window.addEventListener('resize', resize);
@@ -1039,7 +1248,7 @@
     if (reduceMotion) return;
 
     const COLORS = ['#e8b657', '#8266f0'];
-    const N = 34;
+    const N = 46;
     const particles = Array.from({length: N}, () => spawn());
 
     function spawn(){
@@ -1047,10 +1256,10 @@
         x: Math.random() * canvas.width,
         y: canvas.height + Math.random() * 60,
         r: Math.random() * 1.6 + 0.4,
-        speed: Math.random() * 0.35 + 0.12,
-        drift: (Math.random() - 0.5) * 0.3,
+        speed: Math.random() * 0.3 + 0.1,
+        drift: (Math.random() - 0.5) * 0.25,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        alpha: Math.random() * 0.5 + 0.2,
+        alpha: Math.random() * 0.4 + 0.15,
         flicker: Math.random() * Math.PI * 2
       };
     }
