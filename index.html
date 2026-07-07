@@ -27,10 +27,57 @@
     --mono: 'JetBrains Mono', monospace;
   }
 
+  html[data-theme="light"]{
+    --bg: #f6f2ec;
+    --bg-panel: #ffffff;
+    --bg-panel-2: #f1e9fb;
+    --line: rgba(60, 40, 90, 0.12);
+    --ink: #241a35;
+    --ink-dim: #5c4d78;
+    --ink-dimmer: #8577a0;
+    --gold: #b3822f;
+    --gold-dim: #8f6a26;
+    --violet: #6845e0;
+    --violet-glow: rgba(104, 69, 224, 0.18);
+  }
+  html[data-theme="light"] .bg-texture{
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(104,69,224,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(179,130,47,0.07), transparent 60%),
+      var(--bg);
+  }
+  html[data-theme="light"] .rune-ring{ opacity: 0.3; }
+
   *{ margin:0; padding:0; box-sizing:border-box; }
 
+  html[data-theme="light"]{
+    --bg: #f6f1e7;
+    --bg-panel: #ffffff;
+    --bg-panel-2: #f1ead9;
+    --line: rgba(60, 40, 90, 0.12);
+    --ink: #241a35;
+    --ink-dim: #5c4f74;
+    --ink-dimmer: #8a7ea3;
+    --gold: #b3893c;
+    --gold-dim: #8a6a2e;
+    --violet: #6b4fd6;
+    --violet-glow: rgba(107, 79, 214, 0.22);
+  }
+
+  html[data-theme="light"] .bg-texture{
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107,79,214,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(179,137,60,0.07), transparent 60%),
+      var(--bg);
+  }
+
   @media (prefers-reduced-motion: reduce){
-    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    html:not([data-motion="on"]) *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  html[data-motion="off"] *{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
   body{
@@ -39,7 +86,9 @@
     font-family: var(--body);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
   }
+  .bg-texture{ transition: background 0.4s ease; }
 
   a{ color: inherit; text-decoration: none; }
   ::selection{ background: var(--violet-glow); color: var(--ink); }
@@ -84,6 +133,15 @@
     content:''; position:absolute; left:12px; right:12px; bottom:0;
     height: 1px; background: var(--gold);
   }
+  .icon-toggle{
+    background: none; border: 1px solid var(--line); color: var(--ink-dim);
+    width: 34px; height: 34px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.95rem; cursor: pointer; margin-left: 6px;
+    transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  }
+  .icon-toggle:hover{ border-color: var(--gold-dim); background: rgba(232,182,87,0.06); transform: rotate(-8deg); }
+
   .nav-cta{
     font-family: var(--mono); font-size: 0.76rem;
     border: 1px solid var(--gold-dim); color: var(--gold);
@@ -91,6 +149,23 @@
     transition: all 0.2s ease; white-space: nowrap;
   }
   .nav-cta:hover{ background: var(--gold); color: #1a1206; }
+  .theme-toggle{
+    width: 34px; height: 34px;
+    display: inline-flex; align-items:center; justify-content:center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.02);
+    cursor: pointer;
+    margin-left: 12px;
+    transition: border-color 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s ease;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover{ border-color: var(--gold); transform: rotate(-14deg) scale(1.08); }
+  .theme-toggle svg{ width: 16px; height: 16px; stroke: var(--ink-dim); transition: stroke 0.25s ease; }
+  .theme-toggle:hover svg{ stroke: var(--gold); }
+  .theme-toggle .icon-sun{ display: none; }
+  html[data-theme="light"] .theme-toggle .icon-moon{ display: none; }
+  html[data-theme="light"] .theme-toggle .icon-sun{ display: block; }
   @media (max-width: 780px){
     .navlinks button{ display:none; }
     .nav-cta{ display:inline-block; }
@@ -136,6 +211,15 @@
     letter-spacing: -0.01em; max-width: 16ch; margin: 0 auto 26px;
   }
   h1.hero-title em{ font-style: italic; font-weight: 500; color: var(--gold); }
+  .type-cursor{ font-weight: 300; animation: blink 0.9s step-end infinite; }
+  @keyframes blink{ 50%{ opacity: 0; } }
+  .type-cursor{
+    display: inline-block;
+    color: var(--gold);
+    animation: blink 0.9s step-end infinite;
+    font-weight: 400;
+  }
+  @keyframes blink{ 0%, 45%{ opacity: 1; } 50%, 95%{ opacity: 0; } 100%{ opacity: 1; } }
 
   .hero-sub{ font-size: 1.15rem; color: var(--ink-dim); max-width: 50ch; margin: 0 auto 40px; }
   .hero-sub strong{ color: var(--ink); font-weight: 600; }
@@ -169,7 +253,39 @@
   .section-title em{ font-style: italic; color: var(--gold); font-weight: 500; }
   .section-lede{ color: var(--ink-dim); font-size: 1.05rem; margin-top: 18px; max-width: 64ch; }
 
-  hr.rule{ border: none; height: 1px; background: var(--line); }
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.in-view{ opacity: 1; transform: translateY(0); }
+  .reveal-stagger.in-view > *{ animation: none; }
+  .reveal-stagger > *{
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .reveal-stagger.in-view > *{
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-stagger.in-view > *:nth-child(1){ transition-delay: 0.02s; }
+  .reveal-stagger.in-view > *:nth-child(2){ transition-delay: 0.08s; }
+  .reveal-stagger.in-view > *:nth-child(3){ transition-delay: 0.14s; }
+  .reveal-stagger.in-view > *:nth-child(4){ transition-delay: 0.2s; }
+  .reveal-stagger.in-view > *:nth-child(5){ transition-delay: 0.26s; }
+  .reveal-stagger.in-view > *:nth-child(6){ transition-delay: 0.32s; }
+  .reveal-stagger.in-view > *:nth-child(7){ transition-delay: 0.38s; }
+  .reveal-stagger.in-view > *:nth-child(8){ transition-delay: 0.44s; }
+  .reveal-stagger.in-view > *:nth-child(9){ transition-delay: 0.5s; }
+
+  /* ---------- HERO ENTRANCE ---------- */
+  .hero-inner .eyebrow{ animation: rise 0.7s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.05s; }
+  .hero-inner .hero-title{ animation: rise 0.8s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.15s; }
+  .hero-inner .hero-sub{ animation: rise 0.8s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.28s; }
+  .hero-inner .hero-ctas{ animation: rise 0.8s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.4s; }
+  @keyframes rise{ from{ opacity:0; transform: translateY(18px);} to{ opacity:1; transform: translateY(0);} }
 
   /* ---------- ABOUT ---------- */
   .about{ display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: start; }
@@ -238,10 +354,17 @@
 
   .app-card{
     background: var(--bg-panel); border: 1px solid var(--line); border-radius: 6px;
-    padding: 26px; transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+    padding: 26px; transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), background 0.35s ease, box-shadow 0.35s ease;
+    will-change: transform;
   }
-  .app-card:hover{ border-color: var(--violet); transform: translateY(-3px); background: var(--bg-panel-2); }
-  .app-icon{ font-size: 1.5rem; margin-bottom: 14px; display:block; }
+  .app-card:hover{
+    border-color: var(--violet);
+    transform: translateY(-6px) scale(1.015);
+    background: var(--bg-panel-2);
+    box-shadow: 0 16px 40px rgba(130,102,240,0.16), 0 0 0 1px rgba(130,102,240,0.1);
+  }
+  .app-icon{ font-size: 1.5rem; margin-bottom: 14px; display:block; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  .app-card:hover .app-icon{ transform: scale(1.18) rotate(-4deg); }
   .app-name{ font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
   .app-desc{ color: var(--ink-dim); font-size: 0.92rem; margin-bottom: 16px; }
   .app-tags{ display:flex; flex-wrap: wrap; gap: 6px; }
@@ -266,9 +389,9 @@
   @media (max-width: 700px){ .proj-grid{ grid-template-columns: 1fr; } }
   .proj-card{
     border: 1px solid var(--line); border-radius: 6px; padding: 30px;
-    background: var(--bg-panel); transition: border-color 0.25s ease;
+    background: var(--bg-panel); transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease;
   }
-  .proj-card:hover{ border-color: var(--gold-dim); }
+  .proj-card:hover{ border-color: var(--gold-dim); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(232,182,87,0.12); }
   .proj-title{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
   .proj-date{ font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dimmer); margin-bottom: 14px; display:block; }
   .proj-desc{ color: var(--ink-dim); font-size: 0.94rem; margin-bottom: 18px; }
@@ -337,7 +460,9 @@
       <button data-page="projects">Projects</button>
       <button data-page="skills">Skills</button>
       <button data-page="contact">Contact</button>
-      <a href="/resume/CV_Arnav_Gupta.docx" class="nav-cta">Resume</a>
+      <button id="theme-toggle" class="icon-toggle" title="Toggle light/dark theme" aria-label="Toggle light/dark theme">🌙</button>
+      <button id="motion-toggle" class="icon-toggle" title="Toggle animations" aria-label="Toggle animations">✨</button>
+      <a href="https://arnavg.dpdns.org/CV_Arnav_Gupta.pdf" class="nav-cta" target="_blank" rel="noopener">Resume</a>
     </div>
   </nav>
 </header>
@@ -356,7 +481,7 @@
       </svg>
       <div class="hero-inner">
         <div class="eyebrow">Founder · Wizard Ecosystem</div>
-        <h1 class="hero-title">Building AI-powered software from idea to <em>production</em>.</h1>
+        <h1 class="hero-title">Building AI-powered software from idea to <em><span id="type-target"></span><span class="type-cursor">|</span></em></h1>
         <p class="hero-sub">I'm a student developer who builds real, working software — not class projects. <strong>Wizard Ecosystem</strong> is a full AI platform I designed, built, and shipped on my own: an assistant, browser, search engine, mail client, notes app, automation system, and developer API, all live today.</p>
         <div class="hero-ctas">
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Explore Wizard Ecosystem →</a>
@@ -366,18 +491,18 @@
     </section>
 
     <div class="wrap"><hr class="rule"></div>
-    <div class="stats">
-      <div class="stat"><div class="stat-num">12</div><div class="stat-label">Age at launch</div></div>
-      <div class="stat"><div class="stat-num">9</div><div class="stat-label">Integrated apps</div></div>
-      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Backend routes</div></div>
-      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Desktop platforms</div></div>
-      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Languages coded in</div></div>
+    <div class="stats reveal-stagger">
+      <div class="stat"><div class="stat-num" data-count="12">0</div><div class="stat-label">Age at launch</div></div>
+      <div class="stat"><div class="stat-num" data-count="9">0</div><div class="stat-label">Integrated apps</div></div>
+      <div class="stat"><div class="stat-num" data-count="50" data-suffix="+">0</div><div class="stat-label">Backend routes</div></div>
+      <div class="stat"><div class="stat-num" data-count="3">0</div><div class="stat-label">Desktop platforms</div></div>
+      <div class="stat"><div class="stat-num" data-count="4">0</div><div class="stat-label">Languages coded in</div></div>
     </div>
     <div class="wrap"><hr class="rule"></div>
 
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-eyebrow">A Different Kind of Portfolio</div>
           <h2 class="section-title">Not a resume. A <em>working platform</em>.</h2>
           <p class="section-lede">Most student portfolios showcase assignments. This one showcases a production system with real users, a live API, and a codebase I've maintained for months — architected, built, and deployed entirely on my own.</p>
@@ -429,11 +554,11 @@
 
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-eyebrow">Journey</div>
           <h2 class="section-title">From first script to <em>shipped platform</em>.</h2>
         </div>
-        <div class="timeline">
+        <div class="timeline reveal-stagger">
           <div class="t-item">
             <div class="t-date">June 2025</div>
             <div class="t-desc">Started exploring programming — learning <strong>HTML and JavaScript</strong> by building small tools and games for myself.</div>
@@ -455,13 +580,13 @@
   <div class="page" id="page-ecosystem">
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-eyebrow">Featured Project</div>
           <h2 class="section-title">Wizard Ecosystem — a full AI platform, <em>built from scratch</em>.</h2>
           <p class="section-lede">Nine applications, one account, one shared design language. Every layer — backend, desktop client, deployment — was architected and built by one person, from a blank repository to a live platform with real users.</p>
         </div>
 
-        <div class="ecosystem-cta">
+        <div class="ecosystem-cta reveal">
           <div class="ecosystem-cta-text">
             <h3>See it running live</h3>
             <p>The full platform is deployed and usable right now — no waitlist, no demo video standing in for the real thing.</p>
@@ -469,7 +594,7 @@
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
         </div>
 
-        <div class="app-grid">
+        <div class="app-grid reveal-stagger">
 
           <div class="app-card">
             <span class="app-icon">🧠</span>
@@ -536,7 +661,7 @@
 
         </div>
 
-        <div class="architecture-note">
+        <div class="architecture-note reveal">
           <h4>Architecture &amp; Infrastructure</h4>
           <p>A Flask backend handles over fifty routes across an eleven-table SQLite schema — users, chats, memory, calendar events, uploaded files, API keys, personalities, agents, chains, email aliases, and conversations — all tied together through a shared profile system.</p>
           <p>The frontend ships two ways: as static pages on GitHub Pages for the browser experience, and as native Electron installers — NSIS for Windows, DMG for macOS, and AppImage for Linux — with auto-updates through GitHub Releases. Streaming responses run over Server-Sent Events, sessions use HTTP-only, SameSite=None, Secure cookies, and CORS is scoped to the ecosystem's own domains.</p>
@@ -549,12 +674,12 @@
   <div class="page" id="page-projects">
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-eyebrow">Other Projects</div>
           <h2 class="section-title">Smaller builds, <em>same habit of shipping</em>.</h2>
           <p class="section-lede">Before Wizard Ecosystem, there were smaller, standalone projects — each one a step toward being comfortable designing, building, and deploying something from start to finish.</p>
         </div>
-        <div class="proj-grid">
+        <div class="proj-grid reveal-stagger">
           <div class="proj-card">
             <span class="proj-date">January 2026</span>
             <div class="proj-title">A&amp;A Web Studio</div>
@@ -576,12 +701,12 @@
   <div class="page" id="page-skills">
     <section>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-eyebrow">Skills</div>
           <h2 class="section-title">The <em>toolkit</em> behind it.</h2>
           <p class="section-lede">Everything below has shipped in a live application — none of it is untested classroom knowledge.</p>
         </div>
-        <div class="skill-groups">
+        <div class="skill-groups reveal-stagger">
           <div class="skill-group">
             <h4>Development</h4>
             <ul>
@@ -621,11 +746,11 @@
         </div>
 
         <div class="credentials">
-          <div class="section-head" style="margin-bottom: 32px;">
+          <div class="section-head reveal" style="margin-bottom: 32px;">
             <div class="section-eyebrow">Credentials &amp; Recognition</div>
             <h2 class="section-title" style="font-size: clamp(1.5rem, 2.6vw, 2rem);">Competitions, awards, and academics.</h2>
           </div>
-          <div class="cred-grid">
+          <div class="cred-grid reveal-stagger">
             <div class="cred-block">
               <h4>Mathematics</h4>
               <ul>
@@ -667,7 +792,7 @@
   <div class="page" id="page-contact">
     <section>
       <div class="wrap">
-        <div class="section-head" style="text-align:center; max-width: 60ch; margin-left:auto; margin-right:auto;">
+        <div class="section-head reveal" style="text-align:center; max-width: 60ch; margin-left:auto; margin-right:auto;">
           <div class="section-eyebrow">Contact</div>
           <h2 class="section-title">Let's build something <em>real</em>.</h2>
           <p class="section-lede" style="margin-left:auto; margin-right:auto;">Open to internships, scholarships, and collaborations where I can put these tools to work. Send a message below, or reach me directly.</p>
@@ -679,7 +804,7 @@
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
         </div>
 
-        <div class="contact-form-shell">
+        <div class="contact-form-shell reveal">
           <iframe
             id="JotFormIFrame-261870337867065"
             title="Contact Me"
@@ -734,12 +859,175 @@
     showPage(location.hash ? location.hash.replace('#', '') : 'home');
   })();
 
+  // ---- Scroll reveal (IntersectionObserver) ----
+  (function(){
+    const targets = document.querySelectorAll('.reveal, .reveal-stagger');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    targets.forEach(t => io.observe(t));
+
+    // Elements already in view on the active page at load (e.g. hero-adjacent content)
+    // get revealed immediately rather than waiting on scroll.
+    function revealVisible(){
+      document.querySelectorAll('.page.active .reveal:not(.in-view), .page.active .reveal-stagger:not(.in-view)').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0){
+          el.classList.add('in-view');
+          io.unobserve(el);
+        }
+      });
+    }
+    setTimeout(revealVisible, 50);
+
+    // Re-check whenever a page becomes active via the router
+    const pageObserver = new MutationObserver(() => setTimeout(revealVisible, 50));
+    document.querySelectorAll('.page').forEach(p => {
+      pageObserver.observe(p, { attributes: true, attributeFilter: ['class'] });
+    });
+  })();
+
+  // ---- Animated count-up for stat numbers ----
+  (function(){
+    const nums = document.querySelectorAll('.stat-num[data-count]');
+    if (!nums.length) return;
+
+    function animateCount(el){
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+
+      function frame(now){
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          animateCount(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(n => io.observe(n));
+
+    // count up immediately if already visible on load
+    setTimeout(() => {
+      nums.forEach(n => {
+        const r = n.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0 && n.textContent === '0'){
+          animateCount(n);
+          io.unobserve(n);
+        }
+      });
+    }, 100);
+  })();
+
+  // ---- Typewriter effect for hero headline ----
+  (function(){
+    const el = document.getElementById('type-target');
+    if (!el) return;
+    const phrases = ['production.', 'real users.', 'the App Store.', 'GitHub Pages.', 'a live API.'];
+    const motionOff = () => document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
+
+    if (motionOff()){
+      el.textContent = phrases[0];
+      return;
+    }
+
+    let phraseIndex = 0, charIndex = 0, deleting = false;
+
+    function tick(){
+      if (motionOff()){ el.textContent = phrases[0]; return; }
+      const current = phrases[phraseIndex];
+      if (!deleting){
+        charIndex++;
+        el.textContent = current.slice(0, charIndex);
+        if (charIndex === current.length){
+          deleting = true;
+          setTimeout(tick, 1600);
+          return;
+        }
+        setTimeout(tick, 55 + Math.random() * 55);
+      } else {
+        charIndex--;
+        el.textContent = current.slice(0, charIndex);
+        if (charIndex === 0){
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          setTimeout(tick, 300);
+          return;
+        }
+        setTimeout(tick, 28);
+      }
+    }
+    tick();
+  })();
+
+  // ---- Theme toggle (light / dark) ----
+  (function(){
+    const html = document.documentElement;
+    const btn = document.getElementById('theme-toggle');
+    const stored = localStorage.getItem('theme');
+    if (stored){ html.dataset.theme = stored; }
+    updateIcon();
+
+    btn.addEventListener('click', () => {
+      const next = html.dataset.theme === 'light' ? 'dark' : 'light';
+      html.dataset.theme = next;
+      localStorage.setItem('theme', next);
+      updateIcon();
+    });
+
+    function updateIcon(){
+      btn.textContent = html.dataset.theme === 'light' ? '☀️' : '🌙';
+    }
+  })();
+
+  // ---- Motion toggle (override prefers-reduced-motion) ----
+  (function(){
+    const html = document.documentElement;
+    const btn = document.getElementById('motion-toggle');
+    const stored = localStorage.getItem('motion');
+    if (stored){ html.dataset.motion = stored; }
+    updateIcon();
+
+    btn.addEventListener('click', () => {
+      const currentlyOff = html.dataset.motion === 'off' ||
+        (!html.dataset.motion && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      const next = currentlyOff ? 'on' : 'off';
+      html.dataset.motion = next;
+      localStorage.setItem('motion', next);
+      updateIcon();
+    });
+
+    function updateIcon(){
+      const isOff = html.dataset.motion === 'off' ||
+        (!html.dataset.motion && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      btn.textContent = isOff ? '🚫' : '✨';
+      btn.title = isOff ? 'Animations off — click to enable' : 'Animations on — click to disable';
+    }
+  })();
+
   // ---- Ambient spark particles in the hero canvas ----
   (function(){
     const canvas = document.getElementById('sparks');
     const ctx = canvas.getContext('2d');
     const hero = document.querySelector('.hero');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduceMotion = document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
 
     function resize(){
       canvas.width = hero.offsetWidth;
