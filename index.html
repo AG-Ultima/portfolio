@@ -23,6 +23,9 @@
     --violet: #8266f0;
     --violet-glow: rgba(130, 102, 240, 0.35);
     --header-bg: rgba(11, 7, 20, 0.72);
+    --glass-bg: rgba(28, 20, 44, 0.42);
+    --glass-border: rgba(232, 214, 255, 0.14);
+    --glass-shadow: rgba(10, 6, 20, 0.55);
     --display: 'Fraunces', serif;
     --body: 'Inter', -apple-system, sans-serif;
     --mono: 'JetBrains Mono', monospace;
@@ -45,6 +48,9 @@
     --gold-dim: #8a6a2e;
     --violet: #6b4fd6;
     --violet-glow: rgba(107, 79, 214, 0.22);
+    --glass-bg: rgba(255, 255, 255, 0.5);
+    --glass-border: rgba(107, 79, 214, 0.16);
+    --glass-shadow: rgba(107, 79, 214, 0.22);
   }
 
   html[data-theme="light"] .bg-texture{
@@ -94,7 +100,46 @@
     box-shadow: 0 0 8px var(--violet-glow);
   }
 
-  /* ---------- NAV ---------- */
+  /* ---------- GLASS FLOATING PANELS ---------- */
+  .glass-panel{
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      0 25px 60px -15px var(--glass-shadow),
+      0 4px 20px -8px var(--glass-shadow),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    animation: panel-float 5.5s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes panel-float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-16px) rotate(0.3deg); }
+  }
+  .glass-panel.tilt-active{ animation: none; }
+  .glass-stagger-1{ animation-delay: 0s; }
+  .glass-stagger-2{ animation-delay: 0.4s; }
+  .glass-stagger-3{ animation-delay: 0.8s; }
+  .glass-stagger-4{ animation-delay: 1.2s; }
+  .glass-stagger-5{ animation-delay: 1.6s; }
+  .glass-stagger-6{ animation-delay: 2s; }
+  .glass-stagger-7{ animation-delay: 2.4s; }
+  .glass-stagger-8{ animation-delay: 2.8s; }
+  .glass-stagger-9{ animation-delay: 3.2s; }
+
+  /* ---------- SITEWIDE CURSOR GLOW ---------- */
+  #cursor-glow{
+    position: fixed; top: 0; left: 0; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, var(--violet-glow), transparent 70%);
+    pointer-events: none; z-index: 5;
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity 0.5s ease;
+    filter: blur(10px);
+    mix-blend-mode: screen;
+  }
+  html[data-theme="light"] #cursor-glow{ mix-blend-mode: multiply; }
+  #cursor-glow.active{ opacity: 0.55; }
   header{
     position: sticky; top: 0; z-index: 100;
     backdrop-filter: blur(12px);
@@ -182,7 +227,7 @@
   .floating-orbs{ position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
   .orb{
     position: absolute; border-radius: 50%;
-    filter: blur(60px); opacity: 0.35;
+    filter: blur(55px); opacity: 0.5;
     will-change: transform;
   }
   .orb-1{
@@ -202,15 +247,15 @@
   }
   @keyframes drift-1{
     0%,100%{ transform: translate(0, 0); }
-    50%{ transform: translate(80px, 60px); }
+    50%{ transform: translate(140px, 100px); }
   }
   @keyframes drift-2{
     0%,100%{ transform: translate(0, 0); }
-    50%{ transform: translate(-70px, -50px); }
+    50%{ transform: translate(-120px, -90px); }
   }
   @keyframes drift-3{
     0%,100%{ transform: translate(0, 0); }
-    50%{ transform: translate(50px, -70px); }
+    50%{ transform: translate(90px, -130px); }
   }
   .rune-ring{
     position:absolute; top: 50%; left: 50%; width: 640px; height: 640px;
@@ -261,15 +306,6 @@
   .hero-sub strong{ color: var(--ink); font-weight: 600; }
 
   .hero-ctas{ display:flex; gap: 16px; justify-content:center; flex-wrap: wrap; }
-  #cursor-glow{
-    position:absolute; width: 420px; height: 420px; border-radius: 50%;
-    background: radial-gradient(circle, var(--violet-glow), transparent 70%);
-    pointer-events: none; z-index: 1;
-    transform: translate(-50%, -50%);
-    opacity: 0; transition: opacity 0.4s ease;
-    filter: blur(4px);
-  }
-  .hero:hover #cursor-glow{ opacity: 0.7; }
 
   .btn{
     font-family: var(--mono); font-size: 0.85rem; padding: 13px 26px;
@@ -379,11 +415,8 @@
   }
 
   .about-card{
-    background: var(--bg-panel); border: 1px solid var(--line);
-    border-radius: 6px; padding: 28px; position: sticky; top: 100px;
-    animation: float-card 5s ease-in-out infinite;
+    border-radius: 10px; padding: 28px; position: sticky; top: 100px;
   }
-  @keyframes float-card{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
   .about-card h4{
     font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 18px;
@@ -438,7 +471,7 @@
   .ecosystem-cta{
     position: relative;
     display:flex; align-items:center; justify-content:space-between; gap: 24px;
-    background: var(--bg-panel); border: 1px solid transparent; border-radius: 8px;
+    border-radius: 8px;
     padding: 32px 36px; margin-bottom: 56px; flex-wrap: wrap;
     isolation: isolate;
   }
@@ -460,13 +493,12 @@
   @media (max-width: 600px){ .app-grid{ grid-template-columns: 1fr; } }
 
   .app-card{
-    background: var(--bg-panel); border: 1px solid var(--line); border-radius: 6px;
+    border-radius: 10px;
     padding: 26px; transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), background 0.35s ease, box-shadow 0.35s ease;
     will-change: transform;
   }
   .app-card:hover{
     border-color: var(--violet);
-    transform: translateY(-6px) scale(1.015);
     background: var(--bg-panel-2);
     box-shadow: 0 16px 40px rgba(130,102,240,0.16), 0 0 0 1px rgba(130,102,240,0.1);
   }
@@ -508,10 +540,10 @@
   .proj-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 700px){ .proj-grid{ grid-template-columns: 1fr; } }
   .proj-card{
-    border: 1px solid var(--line); border-radius: 6px; padding: 30px;
-    background: var(--bg-panel); transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease;
+    border-radius: 10px; padding: 30px;
+    transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease;
   }
-  .proj-card:hover{ border-color: var(--gold-dim); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(232,182,87,0.12); }
+  .proj-card:hover{ border-color: var(--gold-dim); box-shadow: 0 16px 40px rgba(232,182,87,0.12); }
   .proj-title{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
   .proj-date{ font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dimmer); margin-bottom: 14px; display:block; }
   .proj-desc{ color: var(--ink-dim); font-size: 0.94rem; margin-bottom: 18px; }
@@ -524,8 +556,9 @@
   .proj-link:hover{ border-color: var(--violet); }
 
   /* ---------- SKILLS ---------- */
-  .skill-groups{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .skill-groups{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
   @media (max-width: 800px){ .skill-groups{ grid-template-columns: repeat(2, 1fr); } }
+  .skill-group{ padding: 24px; border-radius: 10px; }
   .skill-group h4{
     font-family: var(--mono); font-size: 0.76rem; text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 16px;
@@ -540,8 +573,9 @@
   .skill-group li:last-child{ border-bottom: none; }
 
   .credentials{ margin-top: 70px; }
-  .cred-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .cred-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   @media (max-width: 700px){ .cred-grid{ grid-template-columns: 1fr; } }
+  .cred-block{ padding: 26px; border-radius: 10px; }
   .cred-block h4{
     font-family: var(--mono); font-size: 0.76rem; text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 16px;
@@ -561,7 +595,6 @@
   .contact-form-shell{
     position: relative;
     max-width: 720px; margin: 0 auto;
-    background: var(--bg-panel); border: 1px solid transparent;
     border-radius: 8px; padding: 4px;
     isolation: isolate;
   }
@@ -594,6 +627,7 @@
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 </div>
+<div id="cursor-glow"></div>
 
 <header>
   <nav>
@@ -623,7 +657,6 @@
   <div class="page active" id="page-home">
 
     <section class="hero">
-      <div id="cursor-glow"></div>
       <svg class="rune-ring" viewBox="0 0 640 640" fill="none">
         <circle cx="320" cy="320" r="300" stroke="#8266f0" stroke-width="0.6" stroke-dasharray="1 10" opacity="0.6"/>
         <circle cx="320" cy="320" r="260" stroke="#e8b657" stroke-width="0.6" stroke-dasharray="4 14" opacity="0.4"/>
@@ -693,7 +726,7 @@
           <p>I'm currently looking for internships, scholarships, and collaborations where these skills can go to work on something that matters.</p>
         </div>
 
-        <div class="about-card">
+        <div class="about-card glass-panel">
           <h4>Quick Facts</h4>
           <div class="fact-row"><span class="fact-label">Based in</span><span class="fact-value">Phoenix, AZ</span></div>
           <div class="fact-row"><span class="fact-label">School</span><span class="fact-value">BASIS Phoenix</span></div>
@@ -747,7 +780,7 @@
           Nine applications. One account. One person.
         </blockquote>
 
-        <div class="ecosystem-cta reveal">
+        <div class="ecosystem-cta reveal glass-panel glass-stagger-1">
           <div class="ecosystem-cta-text">
             <h3>See it running live</h3>
             <p>The full platform is deployed and usable right now — no waitlist, no demo video standing in for the real thing.</p>
@@ -757,63 +790,63 @@
 
         <div class="app-grid reveal-stagger">
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-1">
             <span class="app-icon">🧠</span>
             <div class="app-name">Wizard AI</div>
             <div class="app-desc">Multi-agent assistant with seven personalities, a document RAG pipeline for PDFs, spreadsheets, and code files, and nine agent types you can chain into custom workflows.</div>
             <div class="app-tags"><span class="tag">Flask</span><span class="tag">Groq / Llama 4</span><span class="tag">SSE</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-2">
             <span class="app-icon">📝</span>
             <div class="app-name">Wizard Notes</div>
             <div class="app-desc">AI-powered note-taking with a full editing suite — grammar fix, summarize, format, translate, and expand — plus real-time sharing and permissions.</div>
             <div class="app-tags"><span class="tag">SQLite</span><span class="tag">Auto-save</span><span class="tag">Sharing</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-3">
             <span class="app-icon">🤖</span>
             <div class="app-name">Wizard Autopilot</div>
             <div class="app-desc">Full computer automation from plain-language commands — cursor control, typing, screenshots, and file creation across Windows, macOS, and Linux.</div>
             <div class="app-tags"><span class="tag">Electron</span><span class="tag">PowerShell</span><span class="tag">xdotool</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-4">
             <span class="app-icon">🌐</span>
             <div class="app-name">Wizard Browser</div>
             <div class="app-desc">A full desktop browser with multi-tab workspaces, a built-in password manager, and an ad blocker — Default, Work, School, and Media profiles.</div>
             <div class="app-tags"><span class="tag">Electron</span><span class="tag">Node.js</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-5">
             <span class="app-icon">🔍</span>
             <div class="app-name">Wizard Search</div>
             <div class="app-desc">An AI-powered search engine with live autocomplete and a short, AI-generated topic summary for every query.</div>
             <div class="app-tags"><span class="tag">DuckDuckGo</span><span class="tag">Llama 4</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-6">
             <span class="app-icon">📧</span>
             <div class="app-name">Wizard Mail</div>
             <div class="app-desc">A full email client over IMAP/SMTP with threaded replies, folder sync, and instant @wizardecosystem.dpdns.org address provisioning.</div>
             <div class="app-tags"><span class="tag">IMAP</span><span class="tag">Cloudflare</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-7">
             <span class="app-icon">📅</span>
             <div class="app-name">Wizard Calendar</div>
             <div class="app-desc">Month and week views with color-coded events and overlap detection, synced to your Wizard profile across every app.</div>
             <div class="app-tags"><span class="tag">SQLite</span><span class="tag">JS dates</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-8">
             <span class="app-icon">💬</span>
             <div class="app-name">Wizard Chat</div>
             <div class="app-desc">Real-time messaging with typing indicators and read receipts, built on a lightweight, tab-focus-aware polling architecture.</div>
             <div class="app-tags"><span class="tag">SQLite</span><span class="tag">Polling</span></div>
           </div>
 
-          <div class="app-card">
+          <div class="app-card glass-panel glass-stagger-9">
             <span class="app-icon">💻</span>
             <div class="app-name">Developer Hub &amp; API</div>
             <div class="app-desc">An OpenAI-compatible REST API with bearer-token authentication, published as a Python SDK on PyPI — <code>wizard-ai-pro</code>.</div>
@@ -841,13 +874,13 @@
           <p class="section-lede">Before Wizard Ecosystem, there were smaller, standalone builds — each one another rep at designing, shipping, and finishing something from start to finish.</p>
         </div>
         <div class="proj-grid reveal-stagger">
-          <div class="proj-card">
+          <div class="proj-card glass-panel glass-stagger-1">
             <span class="proj-date">January 2026</span>
             <div class="proj-title">A&amp;A Web Studio</div>
             <div class="proj-desc">A responsive static portfolio site with structured navigation and an integrated contact form, designed and deployed independently — an early exercise in web design and client-facing presentation.</div>
             <a href="https://aaweb.neocities.org" class="proj-link" target="_blank" rel="noopener">aaweb.neocities.org →</a>
           </div>
-          <div class="proj-card">
+          <div class="proj-card glass-panel glass-stagger-2">
             <span class="proj-date">November 2025</span>
             <div class="proj-title">Ultimate Clicker</div>
             <div class="proj-desc">A browser-based incremental game with score tracking, multipliers, level progression, and an upgrade shop — built to practice game-loop logic and persistent state in vanilla JavaScript.</div>
@@ -868,7 +901,7 @@
           <p class="section-lede">Everything below has shipped in a live application — none of it is untested classroom knowledge.</p>
         </div>
         <div class="skill-groups reveal-stagger">
-          <div class="skill-group">
+          <div class="skill-group glass-panel glass-stagger-1">
             <h4>Development</h4>
             <ul>
               <li>Python</li>
@@ -877,7 +910,7 @@
               <li>HTML / CSS</li>
             </ul>
           </div>
-          <div class="skill-group">
+          <div class="skill-group glass-panel glass-stagger-2">
             <h4>Frameworks</h4>
             <ul>
               <li>Flask</li>
@@ -886,7 +919,7 @@
               <li>SQLAlchemy</li>
             </ul>
           </div>
-          <div class="skill-group">
+          <div class="skill-group glass-panel glass-stagger-3">
             <h4>AI</h4>
             <ul>
               <li>RAG pipelines</li>
@@ -895,7 +928,7 @@
               <li>Multi-agent systems</li>
             </ul>
           </div>
-          <div class="skill-group">
+          <div class="skill-group glass-panel glass-stagger-4">
             <h4>Deployment</h4>
             <ul>
               <li>PythonAnywhere</li>
@@ -912,7 +945,7 @@
             <h2 class="section-title" style="font-size: clamp(1.5rem, 2.6vw, 2rem);">Competitions, awards, and academics.</h2>
           </div>
           <div class="cred-grid reveal-stagger">
-            <div class="cred-block">
+            <div class="cred-block glass-panel glass-stagger-1">
               <h4>Mathematics</h4>
               <ul>
                 <li><strong>MathLeague</strong> — 4th place (Qualifier, Dec 2024); 9th place (District, Feb 2025); 11th place (State, May 2025)</li>
@@ -920,7 +953,7 @@
                 <li><strong>Purple Comet Math Meet</strong> — International Competition (Mar 2025)</li>
               </ul>
             </div>
-            <div class="cred-block">
+            <div class="cred-block glass-panel glass-stagger-2">
               <h4>Science &amp; Technology</h4>
               <ul>
                 <li>BASIS Phoenix Science Fair (Feb 2026)</li>
@@ -928,14 +961,14 @@
                 <li>Code Arizona Hackathon (Aug 2026)</li>
               </ul>
             </div>
-            <div class="cred-block">
+            <div class="cred-block glass-panel glass-stagger-3">
               <h4>Academics</h4>
               <ul>
                 <li><strong>BASIS Phoenix</strong> — GPA 4.0, Distinguished Honour Roll (Top 5%)</li>
                 <li><strong>BASIS Phoenix Primary</strong> — GPA 4.0, Distinguished Honour Roll, Integrity Award</li>
               </ul>
             </div>
-            <div class="cred-block">
+            <div class="cred-block glass-panel glass-stagger-4">
               <h4>Taekwondo &amp; Arts</h4>
               <ul>
                 <li><strong>First-Degree Black Belt</strong>, ATA Martial Arts (April 2026)</li>
@@ -965,7 +998,7 @@
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
         </div>
 
-        <div class="contact-form-shell reveal">
+        <div class="contact-form-shell reveal glass-panel">
           <iframe
             id="JotFormIFrame-261870337867065"
             title="Contact Me"
@@ -1112,16 +1145,29 @@
     document.querySelectorAll('.page').forEach(p => obs.observe(p, { attributes: true, attributeFilter: ['class'] }));
   })();
 
-  // ---- Cursor-follow glow in hero ----
+  // ---- Cursor-follow glow, sitewide ----
   (function(){
-    const hero = document.querySelector('.hero');
     const glow = document.getElementById('cursor-glow');
-    if (!hero || !glow) return;
-    hero.addEventListener('mousemove', (e) => {
-      const r = hero.getBoundingClientRect();
-      glow.style.left = (e.clientX - r.left) + 'px';
-      glow.style.top = (e.clientY - r.top) + 'px';
-    });
+    if (!glow) return;
+    let raf = null, lastX = 0, lastY = 0;
+    const motionOff = () => document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
+
+    function apply(){
+      glow.style.left = lastX + 'px';
+      glow.style.top = lastY + 'px';
+      raf = null;
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      if (motionOff()){ glow.classList.remove('active'); return; }
+      lastX = e.clientX;
+      lastY = e.clientY;
+      glow.classList.add('active');
+      if (!raf) raf = requestAnimationFrame(apply);
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => glow.classList.remove('active'));
   })();
 
   // ---- Subtle 3D tilt on cards ----
@@ -1131,15 +1177,19 @@
     const cards = document.querySelectorAll('.app-card, .proj-card');
     cards.forEach(card => {
       card.style.transformStyle = 'preserve-3d';
+      card.addEventListener('mouseenter', () => {
+        if (!motionOff()) card.classList.add('tilt-active');
+      });
       card.addEventListener('mousemove', (e) => {
         if (motionOff()) return;
         const r = card.getBoundingClientRect();
         const px = (e.clientX - r.left) / r.width - 0.5;
         const py = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = `perspective(700px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg) translateY(-4px)`;
+        card.style.transform = `perspective(700px) rotateX(${(-py * 10).toFixed(2)}deg) rotateY(${(px * 10).toFixed(2)}deg) translateY(-8px) scale(1.02)`;
       });
       card.addEventListener('mouseleave', () => {
         card.style.transform = '';
+        card.classList.remove('tilt-active');
       });
     });
   })();
@@ -1248,7 +1298,7 @@
     if (reduceMotion) return;
 
     const COLORS = ['#e8b657', '#8266f0'];
-    const N = 46;
+    const N = 64;
     const particles = Array.from({length: N}, () => spawn());
 
     function spawn(){
