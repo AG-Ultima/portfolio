@@ -140,6 +140,44 @@
   }
   html[data-theme="light"] #cursor-glow{ mix-blend-mode: multiply; }
   #cursor-glow.active{ opacity: 0.55; }
+  /* ---------- MAGIC CURSOR TRAIL ---------- */
+  .trail-spark{
+    position: fixed; z-index: 6; pointer-events: none;
+    border-radius: 50%;
+    animation: trail-fade 900ms ease-out forwards;
+  }
+  @keyframes trail-fade{
+    0%{ opacity: 0.9; transform: scale(1) translateY(0); }
+    100%{ opacity: 0; transform: scale(0.2) translateY(-24px); }
+  }
+
+  /* ---------- BUTTON CLICK RIPPLE ---------- */
+  .ripple{
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.55), rgba(255,255,255,0) 70%);
+    transform: scale(0); pointer-events: none;
+    animation: ripple-out 650ms ease-out forwards;
+  }
+  @keyframes ripple-out{ to{ transform: scale(3.2); opacity: 0; } }
+  .btn{ overflow: hidden; }
+
+  /* ---------- MAGNETIC BUTTONS ---------- */
+  .btn, .icon-toggle, .nav-cta{ transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s ease, background 0.2s ease, box-shadow 0.3s ease; }
+
+  /* ---------- PORTAL PAGE TRANSITION ---------- */
+  #portal-flash{
+    position: fixed; top: 50%; left: 50%; width: 10px; height: 10px;
+    border-radius: 50%; background: radial-gradient(circle, var(--gold), var(--violet) 60%, transparent 75%);
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 300; pointer-events: none; opacity: 0;
+  }
+  #portal-flash.firing{ animation: portal-burst 550ms cubic-bezier(0.16,1,0.3,1) forwards; }
+  @keyframes portal-burst{
+    0%{ transform: translate(-50%,-50%) scale(0); opacity: 0.9; }
+    60%{ opacity: 0.5; }
+    100%{ transform: translate(-50%,-50%) scale(140); opacity: 0; }
+  }
+
   header{
     position: sticky; top: 0; z-index: 100;
     backdrop-filter: blur(12px);
@@ -224,7 +262,7 @@
   }
   #sparks{ position: fixed; inset:0; z-index: -1; pointer-events:none; }
 
-  .floating-orbs{ position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .floating-orbs{ position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; }
   .orb{
     position: absolute; border-radius: 50%;
     filter: blur(55px); opacity: 0.5;
@@ -628,6 +666,7 @@
   <div class="orb orb-3"></div>
 </div>
 <div id="cursor-glow"></div>
+<div id="portal-flash"></div>
 
 <header>
   <nav>
@@ -1168,6 +1207,104 @@
     }, { passive: true });
 
     document.addEventListener('mouseleave', () => glow.classList.remove('active'));
+  })();
+
+  // ---- Magic sparkle trail behind the cursor ----
+  (function(){
+    const motionOff = () => document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
+    const COLORS = ['#e8b657', '#8266f0', '#f7dba0'];
+    let lastSpawn = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      if (motionOff()) return;
+      const now = performance.now();
+      if (now - lastSpawn < 55) return; // throttle density
+      lastSpawn = now;
+
+      const spark = document.createElement('div');
+      spark.className = 'trail-spark';
+      const size = Math.random() * 4 + 2;
+      spark.style.width = size + 'px';
+      spark.style.height = size + 'px';
+      spark.style.left = (e.clientX + (Math.random() - 0.5) * 14) + 'px';
+      spark.style.top = (e.clientY + (Math.random() - 0.5) * 14) + 'px';
+      spark.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+      spark.style.boxShadow = `0 0 6px ${spark.style.background}`;
+      document.body.appendChild(spark);
+      setTimeout(() => spark.remove(), 950);
+    }, { passive: true });
+  })();
+
+  // ---- Parallax depth on background orbs ----
+  (function(){
+    const orbs = document.querySelector('.floating-orbs');
+    if (!orbs) return;
+    const motionOff = () => document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
+    let raf = null;
+
+    document.addEventListener('mousemove', (e) => {
+      if (motionOff()) return;
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const nx = (e.clientX / window.innerWidth - 0.5) * 2;
+        const ny = (e.clientY / window.innerHeight - 0.5) * 2;
+        orbs.style.transform = `translate(${nx * -22}px, ${ny * -18}px)`;
+        raf = null;
+      });
+    }, { passive: true });
+  })();
+
+  // ---- Magnetic pull + click ripple on buttons ----
+  (function(){
+    const motionOff = () => document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
+    const magnets = document.querySelectorAll('.btn, .icon-toggle, .nav-cta');
+
+    magnets.forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        if (motionOff()) return;
+        const r = el.getBoundingClientRect();
+        const mx = (e.clientX - r.left - r.width / 2) * 0.25;
+        const my = (e.clientY - r.top - r.height / 2) * 0.35;
+        el.style.transform = `translate(${mx}px, ${my}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (motionOff()) return;
+        const r = btn.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(r.width, r.height) * 1.2;
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - r.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - r.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+      });
+    });
+  })();
+
+  // ---- Portal flash on page change ----
+  (function(){
+    const flash = document.getElementById('portal-flash');
+    if (!flash) return;
+    const motionOff = () => document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia('(prefers-reduced-motion: reduce)').matches && document.documentElement.dataset.motion !== 'on');
+    document.querySelectorAll('[data-page]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (motionOff()) return;
+        flash.style.left = e.clientX + 'px';
+        flash.style.top = e.clientY + 'px';
+        flash.classList.remove('firing');
+        void flash.offsetWidth; // restart animation
+        flash.classList.add('firing');
+      });
+    });
   })();
 
   // ---- Subtle 3D tilt on cards ----
