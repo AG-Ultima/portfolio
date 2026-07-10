@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arnav Gupta — Student Developer, Founder of Wizard Ecosystem</title>
 <meta name="description" content="Arnav Gupta builds AI-powered software from idea to production. Founder of Wizard Ecosystem, a full AI platform with nine integrated applications.">
+
+<!-- Open Graph / social link previews -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://arnavg.dpdns.org/">
+<meta property="og:title" content="Arnav Gupta — Student Developer, Founder of Wizard Ecosystem">
+<meta property="og:description" content="A nine-app AI platform — assistant, browser, search engine, mail, notes, automation, chat, calendar, and a developer API — designed, built, and deployed solo.">
+<meta property="og:image" content="https://arnavg.dpdns.org/assets/og-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arnav Gupta — Student Developer, Founder of Wizard Ecosystem">
+<meta name="twitter:description" content="A nine-app AI platform — assistant, browser, search engine, mail, notes, automation, chat, calendar, and a developer API — designed, built, and deployed solo.">
+<meta name="twitter:image" content="https://arnavg.dpdns.org/assets/og-preview.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -538,8 +553,10 @@
     box-shadow: 0 0 0 0 rgba(232,182,87,0.45);
     animation: dot-pulse 2.8s ease-out infinite;
   }
-  .t-item:nth-child(2)::before{ animation-delay: 0.4s; }
-  .t-item:nth-child(3)::before{ animation-delay: 0.8s; }
+  .t-item:nth-child(2)::before{ animation-delay: 0.3s; }
+  .t-item:nth-child(3)::before{ animation-delay: 0.6s; }
+  .t-item:nth-child(4)::before{ animation-delay: 0.9s; }
+  .t-item:nth-child(5)::before{ animation-delay: 1.2s; }
   @keyframes dot-pulse{
     0%{ box-shadow: 0 0 0 0 rgba(232,182,87,0.45); }
     70%{ box-shadow: 0 0 0 9px rgba(232,182,87,0); }
@@ -877,7 +894,7 @@
       <div class="hero-inner">
         <div class="eyebrow">Founder · Wizard Ecosystem</div>
         <h1 class="hero-title">Student Developer &amp; <em><span id="type-target"></span><span class="type-cursor">|</span></em></h1>
-        <p class="hero-sub">Most of my age group is learning to code. I've been shipping to production. <strong>Wizard Ecosystem</strong> is a nine-app AI platform — assistant, browser, search engine, mail, notes, automation, chat, calendar, and a developer API — designed, built, and deployed by one person, live today.</p>
+        <p class="hero-sub">Most people my age are still learning loops and conditionals. I've spent the last few months shipping to production. <strong>Wizard Ecosystem</strong> is nine applications running as one platform — assistant, browser, search engine, mail, notes, automation, calendar, chat, and a developer API — live today, built and deployed without a team.</p>
         <div class="hero-ctas">
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Explore Wizard Ecosystem →</a>
           <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">View GitHub</a>
@@ -900,7 +917,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">A Different Kind of Portfolio</div>
           <h2 class="section-title">Not a resume. A <em>working platform</em>.</h2>
-          <p class="section-lede">Most student portfolios showcase assignments turned in for a grade. This one showcases a production system: real users, a public API, an eleven-table database, and a codebase I've kept running for months — architected, written, and deployed without a team.</p>
+          <p class="section-lede">Most student portfolios show off assignments turned in for a grade. This one shows off a production system — real users, a public API, an eleven-table database, and a codebase that's stayed running for months, with no team behind it but me.</p>
         </div>
         <div class="hero-ctas" style="justify-content:flex-start;">
           <button class="btn btn-gold-outline" data-page="about">Read my story →</button>
@@ -920,21 +937,23 @@
           <h2 class="section-title" style="margin-bottom: 30px;">I started programming by building things I wanted to <em>use</em>.</h2>
 
           <h3>How it started</h3>
-          <p>In June 2025, I picked up HTML and JavaScript the way most people start: building small tools and games just to see if I could. There was no plan for an "ecosystem" yet — just curiosity, and a habit of actually finishing what I started.</p>
-          <p>By November 2025, I'd moved into Python — drawn to how fast it let me turn an idea into something that ran. Scripts and automations came first, then backend logic, then full applications.</p>
+          <p>In June 2025, I picked up HTML and JavaScript the way most people start: building small tools and games just to see if I could. There was no plan for an "ecosystem" yet, just curiosity and a habit of finishing what I started.</p>
+          <p>By November 2025 I'd moved into Python, drawn to how fast it let an idea become something that actually ran. Scripts and automations came first, then backend logic, then full applications.</p>
 
           <h3>How it became Wizard</h3>
-          <p>In March 2026, those separate skills folded into <strong>Wizard Ecosystem</strong> — one unified platform instead of another one-off project. I wasn't interested in building "an AI chatbot." I wanted the full stack of software a person actually opens in a day: an assistant, a browser, a search engine, email, notes, a calendar, chat, automation, and a developer API, all sharing one account and one codebase.</p>
+          <p>On March 2, 2026, I set out to build an AI chatbot, nothing more ambitious than that at first. It started as basic Python pattern-matching against a <code>learned_phrases.txt</code> file, then a real model running locally through Ollama, served on localhost with Flask. Mid-March, I moved it onto Groq's API and put it fully online through GitHub and PythonAnywhere.</p>
 
           <blockquote class="pull-quote reveal">
             <span class="quote-mark">"</span>
-            I wasn't interested in building another chatbot — I wanted the whole stack of software a person actually opens in a day.
+            What if there was more?
           </blockquote>
 
-          <p>Every piece is mine: the Flask backend running fifty-plus routes, the eleven-table SQLite schema behind it, the Electron builds for Windows, macOS, and Linux, and the deployment pipeline across PythonAnywhere and GitHub Pages. Architecture, code, and shipping — while still in middle school.</p>
+          <p>The "ecosystem" idea didn't arrive until April 21, the moment I asked myself that question and started sketching what else could plug into the same account, the same login, the same design language. That's where a single chatbot project became <strong>Wizard Ecosystem</strong>: an assistant, a browser, a search engine, email, notes, a calendar, chat, automation, and a developer API, all sharing one codebase.</p>
+
+          <p>Every piece of it is mine — the Flask backend running fifty-plus routes, the eleven-table SQLite schema underneath, the Electron builds for Windows, macOS, and Linux, and the deployment pipeline across PythonAnywhere and GitHub Pages. Architecture, code, and shipping, all while still in middle school.</p>
 
           <h3>Beyond the code</h3>
-          <p>Off-screen, I hold a <strong>First-Degree Black Belt in Taekwondo</strong>, earned in April 2026 through ATA's Leadership and Life Skills programs. I play violin in my school orchestra and compete in MATHCOUNTS and MathLeague. None of it is really separate — the discipline that earns a black belt is the same discipline that keeps a nine-application platform running, tested, and maintained.</p>
+          <p>Off-screen, I hold a <strong>First-Degree Black Belt in Taekwondo</strong>, earned in April 2026 through ATA's Leadership and Life Skills programs. I play violin in my school orchestra and compete in MATHCOUNTS and MathLeague. None of it feels separate to me — the discipline that earns a black belt is the same discipline that keeps a nine-application platform running, tested, and maintained.</p>
           <p>I'm currently looking for internships, scholarships, and collaborations where these skills can go to work on something that matters.</p>
         </div>
 
@@ -947,6 +966,7 @@
           <div class="fact-row"><span class="fact-label">Core stack</span><span class="fact-value">Python · JS · Electron</span></div>
           <div class="fact-row"><span class="fact-label">Black belt</span><span class="fact-value">Taekwondo, 2026</span></div>
           <div class="fact-row"><span class="fact-label">GitHub</span><span class="fact-value">ag-ultima</span></div>
+          <div class="fact-row"><span class="fact-label">LinkedIn</span><span class="fact-value"><a href="https://www.linkedin.com/in/wizard-ecosystem/" target="_blank" rel="noopener" style="color: var(--violet); border-bottom: 1px solid transparent;">wizard-ecosystem</a></span></div>
         </div>
       </div>
     </section>
@@ -969,8 +989,16 @@
             <div class="t-desc">Started learning <strong>Python</strong>, moving from front-end experiments into backend logic and automation.</div>
           </div>
           <div class="t-item">
-            <div class="t-date">March 2026</div>
-            <div class="t-desc">Began building <strong>Wizard Ecosystem</strong> — designed the architecture, built all nine applications, and released a public developer API and Python SDK.</div>
+            <div class="t-date">March 2, 2026</div>
+            <div class="t-desc">Set out to build a simple <strong>AI chatbot</strong> — starting with basic Python pattern-matching against a <code>learned_phrases.txt</code> file, then a real local model served through <strong>Ollama</strong> and Flask.</div>
+          </div>
+          <div class="t-item">
+            <div class="t-date">Mid-March 2026</div>
+            <div class="t-desc">Switched the chatbot to <strong>Groq's API</strong> and took it fully online, deployed through GitHub and PythonAnywhere.</div>
+          </div>
+          <div class="t-item">
+            <div class="t-date">April 21, 2026</div>
+            <div class="t-desc">Asked "what if there was more?" — the moment a single chatbot project became <strong>Wizard Ecosystem</strong>, expanding into nine applications sharing one account and one codebase.</div>
           </div>
         </div>
       </div>
@@ -984,7 +1012,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">Featured Project</div>
           <h2 class="section-title">Wizard Ecosystem — a full AI platform, <em>built from scratch</em>.</h2>
-          <p class="section-lede">Nine applications, one account, one shared design language. Backend, desktop client, and deployment pipeline — every layer architected and built by one person, from an empty repository to a platform with real users.</p>
+          <p class="section-lede">Nine applications sharing one account and one design language. Backend, desktop client, deployment pipeline — every layer of it built by one person, starting from an empty repository and ending at a platform with real users.</p>
         </div>
 
         <div class="hero-shot glass-panel reveal">
@@ -1000,7 +1028,7 @@
         <div class="ecosystem-cta reveal glass-panel glass-stagger-1">
           <div class="ecosystem-cta-text">
             <h3>See it running live</h3>
-            <p>The full platform is deployed and usable right now — no waitlist, no demo video standing in for the real thing.</p>
+            <p>The platform is deployed and usable right now — no waitlist, no demo reel standing in for the real thing.</p>
           </div>
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
         </div>
@@ -1039,7 +1067,7 @@
             <div class="app-peek-hint">Hover to preview</div>
             <span class="app-icon">🌐</span>
             <div class="app-name">Wizard Browser</div>
-            <div class="app-desc">A full desktop browser with multi-tab workspaces, a built-in password manager, and an ad blocker — Default, Work, School, and Media profiles.</div>
+            <div class="app-desc">A desktop browser with multi-tab workspaces, a built-in password manager, and an ad blocker — Default, Work, School, and Media profiles.</div>
             <div class="app-tags"><span class="tag">Electron</span><span class="tag">Node.js</span></div>
           </div>
 
@@ -1090,8 +1118,8 @@
 
         <div class="architecture-note reveal">
           <h4>Architecture &amp; Infrastructure</h4>
-          <p>A Flask backend handles over fifty routes across an eleven-table SQLite schema — users, chats, memory, calendar events, uploaded files, API keys, personalities, agents, chains, email aliases, and conversations — all tied together through a shared profile system.</p>
-          <p>The frontend ships two ways: as static pages on GitHub Pages for the browser experience, and as native Electron installers — NSIS for Windows, DMG for macOS, and AppImage for Linux — with auto-updates through GitHub Releases. Streaming responses run over Server-Sent Events, sessions use HTTP-only, SameSite=None, Secure cookies, and CORS is scoped to the ecosystem's own domains.</p>
+          <p>A Flask backend handles fifty-plus routes across an eleven-table SQLite schema — users, chats, memory, calendar events, uploaded files, API keys, personalities, agents, chains, email aliases, and conversations — tied together through a shared profile system.</p>
+          <p>The frontend ships two ways: static pages on GitHub Pages for the browser experience, and native Electron installers — NSIS for Windows, DMG for macOS, AppImage for Linux — with auto-updates through GitHub Releases. Streaming responses run over Server-Sent Events, sessions use HTTP-only, SameSite=None, Secure cookies, and CORS stays scoped to the ecosystem's own domains.</p>
         </div>
       </div>
     </section>
@@ -1103,7 +1131,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">Recognition &amp; Traction</div>
           <h2 class="section-title">Independently evaluated, <em>not self-scored</em>.</h2>
-          <p class="section-lede">In June 2026, Wizard Ecosystem was submitted to the Hackernoon Decentralize AI Hackathon and evaluated by ProofOfUsefulness.com — a third-party tool that scores real-world utility rather than taking a project's word for it.</p>
+          <p class="section-lede">In June 2026, Wizard Ecosystem was submitted to the Hackernoon Decentralize AI Hackathon and evaluated by ProofOfUsefulness.com, a third-party tool that scores real-world utility instead of taking a project's word for it.</p>
         </div>
 
         <div class="eval-card glass-panel reveal">
@@ -1138,6 +1166,7 @@
           </div>
           <div class="stat-mini-group glass-panel glass-stagger-3 reveal">
             <h4>Developer Platform</h4>
+            <div class="stat-mini"><span class="stat-mini-num" data-count="233">0</span><span class="stat-mini-label">API requests served</span></div>
             <div class="stat-mini"><span class="stat-mini-num" data-count="1">0</span><span class="stat-mini-label">API key generated</span></div>
             <div class="stat-mini"><span class="stat-mini-num" data-count="9">0</span><span class="stat-mini-label">Code executions</span></div>
           </div>
@@ -1147,7 +1176,7 @@
           </div>
         </div>
 
-        <p class="press-note reveal">Development updates are published on <a href="https://dev.to/wizard-ecosystem" target="_blank" rel="noopener">DEV Community</a> and <a href="https://coderlegion.com/user/ag_wizai" target="_blank" rel="noopener">CoderLegion</a>. These are early numbers from a solo, early-adopter launch — the plan is to keep growing them, not to stop measuring once they look good.</p>
+        <p class="press-note reveal">Development updates are published on <a href="https://dev.to/wizard-ecosystem" target="_blank" rel="noopener">DEV Community</a> and <a href="https://coderlegion.com/user/ag_wizai" target="_blank" rel="noopener">CoderLegion</a>. These are early numbers from a solo, early-adopter launch — the plan is to keep growing them, not to stop measuring the moment they look decent.</p>
       </div>
     </section>
   </div>
@@ -1159,7 +1188,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">Other Projects</div>
           <h2 class="section-title">Smaller builds, <em>same habit of shipping</em>.</h2>
-          <p class="section-lede">Before Wizard Ecosystem, there were smaller, standalone builds — each one another rep at designing, shipping, and finishing something from start to finish.</p>
+          <p class="section-lede">Before Wizard Ecosystem, there were smaller, standalone builds — each one another rep at designing, shipping, and actually finishing something.</p>
         </div>
         <div class="proj-grid reveal-stagger">
           <div class="proj-card glass-panel glass-stagger-1">
@@ -1283,6 +1312,7 @@
         <div class="hero-ctas" style="margin-bottom: 48px;">
           <a href="mailto:ag@wizardecosystem.dpdns.org" class="btn btn-secondary">Email me</a>
           <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/wizard-ecosystem/" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
         </div>
 
