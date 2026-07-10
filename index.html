@@ -787,6 +787,26 @@
   .press-note a{ color: var(--violet); border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
   .press-note a:hover{ border-color: var(--violet); }
 
+  .whats-next{ margin-top: 40px; }
+  .whats-next h4{
+    font-family: var(--mono); font-size: 0.76rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 18px;
+  }
+  .next-grid{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 800px){ .next-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px){ .next-grid{ grid-template-columns: 1fr; } }
+  .next-item{
+    display: flex; align-items: baseline; gap: 10px;
+    font-size: 0.9rem; color: var(--ink-dim);
+    padding: 14px 16px; border-radius: 8px; border: 1px solid var(--line);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .next-item:hover{ border-color: var(--violet); transform: translateY(-2px); }
+  .next-num{
+    font-family: var(--mono); font-size: 0.78rem; color: var(--gold);
+    font-weight: 600;
+  }
+
   /* ---------- PROJECTS ---------- */
   .proj-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 700px){ .proj-grid{ grid-template-columns: 1fr; } }
@@ -922,6 +942,7 @@
         <div class="hero-ctas">
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Explore Wizard Ecosystem →</a>
           <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">View GitHub</a>
+          <a href="https://www.linkedin.com/in/wizard-ecosystem" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -939,7 +960,7 @@
     <section style="padding: 70px 0;">
       <div class="wrap">
         <div class="teaser-head reveal">
-          <span class="teaser-label">One login. Nine apps.</span>
+          <span class="teaser-label">The full lineup</span>
         </div>
         <div class="app-teaser-strip reveal-stagger">
           <button class="app-chip" data-page="ecosystem"><span>🧠</span>Wizard AI</button>
@@ -962,7 +983,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">A Different Kind of Portfolio</div>
           <h2 class="section-title">Not a resume. A <em>working platform</em>.</h2>
-          <p class="section-lede">Most student portfolios show off assignments turned in for a grade. This one shows off a production system — real users, a public API, an eleven-table database, and a codebase that's stayed running for months, with no team behind it but me.</p>
+          <p class="section-lede">You won't find a bullet point here that says "familiar with Python." You'll find a live login screen, a public API with real keys issued to real requests, and a database that's been running since March without anyone but me to fix it when it breaks.</p>
         </div>
         <div class="hero-ctas" style="justify-content:flex-start;">
           <button class="btn btn-gold-outline" data-page="about">Read my story →</button>
@@ -1027,23 +1048,23 @@
         <div class="timeline reveal-stagger">
           <div class="t-item">
             <div class="t-date">June 2025</div>
-            <div class="t-desc">Started exploring programming — learning <strong>HTML and JavaScript</strong> by building small tools and games for myself.</div>
+            <div class="t-desc"><strong>HTML &amp; JavaScript</strong> — small tools and games, just to see if I could.</div>
           </div>
           <div class="t-item">
             <div class="t-date">November 2025</div>
-            <div class="t-desc">Started learning <strong>Python</strong>, moving from front-end experiments into backend logic and automation.</div>
+            <div class="t-desc"><strong>Python</strong> — backend logic and automation.</div>
           </div>
           <div class="t-item">
             <div class="t-date">March 2, 2026</div>
-            <div class="t-desc">Set out to build a simple <strong>AI chatbot</strong> — starting with basic Python pattern-matching against a <code>learned_phrases.txt</code> file, then a real local model served through <strong>Ollama</strong> and Flask.</div>
+            <div class="t-desc">Start of a simple <strong>AI chatbot</strong> — <code>learned_phrases.txt</code>, then Ollama running locally.</div>
           </div>
           <div class="t-item">
             <div class="t-date">Mid-March 2026</div>
-            <div class="t-desc">Switched the chatbot to <strong>Groq's API</strong> and took it fully online, deployed through GitHub and PythonAnywhere.</div>
+            <div class="t-desc">Moved onto <strong>Groq's API</strong>, fully online via GitHub and PythonAnywhere.</div>
           </div>
           <div class="t-item">
             <div class="t-date">April 21, 2026</div>
-            <div class="t-desc">Asked "what if there was more?" — the moment a single chatbot project became <strong>Wizard Ecosystem</strong>, expanding into nine applications sharing one account and one codebase.</div>
+            <div class="t-desc">"What if there was more?" — <strong>Wizard Ecosystem</strong> begins.</div>
           </div>
         </div>
       </div>
@@ -1194,7 +1215,7 @@
               <div class="eval-row"><span>Audience Reach Impact</span><span>+2.0</span></div>
             </div>
           </div>
-          <p class="eval-summary">The report's own words: Wizard Ecosystem "attempts to solve the genuine problem of AI tool fragmentation through a unified workspace," showing clear vision and solid technical integration of external APIs. It also flagged the honest downside — traction is still early, and growth and retention are what will decide whether it holds up in a saturated market. That's the kind of evaluation worth including precisely because it isn't just praise.</p>
+          <p class="eval-summary">Wizard Ecosystem <em>"attempts to solve the genuine problem of AI tool fragmentation through a unified workspace,"</em> the report reads, citing clear vision and solid technical integration of external APIs. It also named the honest downside: traction is still early, and growth and retention will decide whether it holds up in a saturated market. That's worth showing precisely because it isn't just praise.</p>
         </div>
 
         <div class="stat-mini-groups">
@@ -1222,6 +1243,16 @@
         </div>
 
         <p class="press-note reveal">Development updates are published on <a href="https://dev.to/wizard-ecosystem" target="_blank" rel="noopener">DEV Community</a> and <a href="https://coderlegion.com/user/ag_wizai" target="_blank" rel="noopener">CoderLegion</a>. These are early numbers from a solo, early-adopter launch — the plan is to keep growing them, not to stop measuring the moment they look decent.</p>
+
+        <div class="whats-next reveal">
+          <h4>What's Next</h4>
+          <div class="next-grid">
+            <div class="next-item"><span class="next-num">01</span>Improving search quality</div>
+            <div class="next-item"><span class="next-num">02</span>Expanding automation workflows</div>
+            <div class="next-item"><span class="next-num">03</span>Enhancing the desktop experience</div>
+            <div class="next-item"><span class="next-num">04</span>Growing the early-adopter community</div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -1351,7 +1382,7 @@
         <div class="section-head reveal" style="text-align:center; max-width: 60ch; margin-left:auto; margin-right:auto;">
           <div class="section-eyebrow">Contact</div>
           <h2 class="section-title">Let's build something <em>real</em>.</h2>
-          <p class="section-lede" style="margin-left:auto; margin-right:auto;">Open to internships, scholarships, and collaborations where I can put these tools to work. Send a message below, or reach me directly.</p>
+          <p class="section-lede" style="margin-left:auto; margin-right:auto;">If you're looking at an internship, a scholarship, or just want to talk shop about what's next for Wizard Ecosystem, this is the way in. Send a message below, or find me directly.</p>
         </div>
 
         <div class="hero-ctas" style="margin-bottom: 48px;">
