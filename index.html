@@ -391,6 +391,22 @@
 
   .hero-ctas{ display:flex; gap: 16px; justify-content:center; flex-wrap: wrap; }
 
+  .trust-badge{
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-top: 34px; padding: 10px 20px 10px 10px;
+    border-radius: 999px; border: 1px solid var(--glass-border);
+    background: var(--glass-bg); backdrop-filter: blur(14px);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .trust-badge:hover{ border-color: var(--gold-dim); transform: translateY(-2px); }
+  .trust-badge-score{
+    display: flex; align-items: baseline; gap: 2px;
+    font-family: var(--display); font-weight: 600; font-size: 1.1rem; color: var(--gold);
+    background: rgba(232,182,87,0.1); padding: 6px 12px; border-radius: 999px;
+  }
+  .trust-badge-score span{ font-size: 0.72rem; color: var(--ink-dimmer); font-weight: 500; }
+  .trust-badge-text{ font-family: var(--mono); font-size: 0.78rem; color: var(--ink-dim); }
+
   /* ---------- HOME APP TEASER STRIP ---------- */
   .teaser-head{ text-align: center; margin-bottom: 28px; }
   .teaser-label{
@@ -642,6 +658,8 @@
   }
   @keyframes hint-twinkle{ 0%,100%{ opacity: 0.4; } 50%{ opacity: 1; } }
   .app-card:hover .app-peek-hint{ opacity: 0; max-height: 0; margin-bottom: 0; }
+  .app-card:hover .app-peek-pending{ opacity: 0.6; max-height: 20px; margin-bottom: 14px; }
+  .app-peek-pending::before{ content: '◐'; animation: none; }
 
   .app-shot{
     position: relative;
@@ -767,7 +785,17 @@
     padding: 4px 0; border-bottom: 1px solid var(--line);
   }
   .eval-row span:last-child{ color: var(--gold-dim); }
+  .eval-row-subtotal{ border-top: 1px solid var(--line); margin-top: 4px; padding-top: 10px; }
+  .eval-row-subtotal span, .eval-row-multiplier span{ color: var(--ink); font-weight: 600; }
+  .eval-row-subtotal span:last-child{ color: var(--ink); }
+  .eval-row-multiplier span:last-child{ color: var(--violet); }
   .eval-summary{ color: var(--ink-dim); font-size: 0.95rem; line-height: 1.7; }
+  .eval-link{
+    display: inline-block; margin-top: 18px;
+    font-family: var(--mono); font-size: 0.82rem; color: var(--gold);
+    border-bottom: 1px solid transparent; transition: border-color 0.2s ease, gap 0.2s ease;
+  }
+  .eval-link:hover{ border-color: var(--gold); }
 
   .stat-mini-groups{
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 28px;
@@ -938,12 +966,16 @@
       <div class="hero-inner">
         <div class="eyebrow">Founder · Wizard Ecosystem</div>
         <h1 class="hero-title">Student Developer &amp; <em><span id="type-target"></span><span class="type-cursor">|</span></em></h1>
-        <p class="hero-sub">Most people my age are still learning loops and conditionals. I've spent the last few months shipping to production. <strong>Wizard Ecosystem</strong> is nine applications running as one platform — assistant, browser, search engine, mail, notes, automation, calendar, chat, and a developer API — live today, built and deployed without a team.</p>
+        <p class="hero-sub">Most people my age are still learning loops and conditionals. I've spent the last few months shipping to production. <strong>Wizard Ecosystem</strong> brings an assistant, browser, search engine, mail, notes, automation, calendar, chat, and a developer API into a single platform — live today, built and deployed without a team.</p>
         <div class="hero-ctas">
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Explore Wizard Ecosystem →</a>
           <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">View GitHub</a>
           <a href="https://www.linkedin.com/in/wizard-ecosystem" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
         </div>
+        <a href="https://proofofusefulness.com/reports/wizard-ecosystem" target="_blank" rel="noopener" class="trust-badge">
+          <span class="trust-badge-score">38.5<span>/39</span></span>
+          <span class="trust-badge-text">Independently evaluated by ProofOfUsefulness.com →</span>
+        </a>
       </div>
     </section>
 
@@ -1138,6 +1170,7 @@
           </div>
 
           <div class="app-card glass-panel glass-stagger-5">
+            <div class="app-peek-hint app-peek-pending">Preview coming soon</div>
             <span class="app-icon">🔍</span>
             <div class="app-name">Wizard Search</div>
             <div class="app-desc">An AI-powered search engine with live autocomplete and a short, AI-generated topic summary for every query.</div>
@@ -1197,7 +1230,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">Recognition &amp; Traction</div>
           <h2 class="section-title">Independently evaluated, <em>not self-scored</em>.</h2>
-          <p class="section-lede">In June 2026, Wizard Ecosystem was submitted to the Hackernoon Decentralize AI Hackathon and evaluated by ProofOfUsefulness.com, a third-party tool that scores real-world utility instead of taking a project's word for it.</p>
+          <p class="section-lede">In June 2026, Wizard Ecosystem was submitted to the <a href="https://hackernoon.com/everything-you-need-to-know-about-hackernoons-proof-of-usefulness-hackathon" target="_blank" rel="noopener" style="color: var(--violet); border-bottom: 1px solid var(--violet);">Hackernoon Decentralize AI Hackathon</a> and evaluated by <a href="https://proofofusefulness.com/reports/wizard-ecosystem" target="_blank" rel="noopener" style="color: var(--violet); border-bottom: 1px solid var(--violet);">ProofOfUsefulness.com</a>, a third-party tool that scores real-world utility instead of taking a project's word for it.</p>
         </div>
 
         <div class="eval-card glass-panel reveal">
@@ -1213,9 +1246,12 @@
               <div class="eval-row"><span>Functional Completeness</span><span>+3.5</span></div>
               <div class="eval-row"><span>Evidence of Traction</span><span>+2.5</span></div>
               <div class="eval-row"><span>Audience Reach Impact</span><span>+2.0</span></div>
+              <div class="eval-row eval-row-subtotal"><span>Subtotal</span><span>35.0</span></div>
+              <div class="eval-row eval-row-multiplier"><span>Usefulness Multiplier</span><span>×1.1</span></div>
             </div>
           </div>
           <p class="eval-summary">Wizard Ecosystem <em>"attempts to solve the genuine problem of AI tool fragmentation through a unified workspace,"</em> the report reads, citing clear vision and solid technical integration of external APIs. It also named the honest downside: traction is still early, and growth and retention will decide whether it holds up in a saturated market. That's worth showing precisely because it isn't just praise.</p>
+          <a href="https://proofofusefulness.com/reports/wizard-ecosystem" target="_blank" rel="noopener" class="eval-link">View the full report →</a>
         </div>
 
         <div class="stat-mini-groups">
@@ -1351,7 +1387,7 @@
               <ul>
                 <li>BASIS Phoenix Science Fair (Feb 2026)</li>
                 <li>Frostbyte Hackathon (Feb 2026)</li>
-                <li>Code Arizona Hackathon (Aug 2026)</li>
+                <li>Code Arizona Hackathon (Aug 2026) — <em style="color: var(--ink-dimmer); font-style: normal; font-size: 0.85em;">registered, upcoming</em></li>
               </ul>
             </div>
             <div class="cred-block glass-panel glass-stagger-3">
