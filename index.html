@@ -890,6 +890,36 @@
   .cred-block li:last-child{ border-bottom: none; }
   .cred-block li strong{ color: var(--ink); font-weight: 600; }
 
+  /* ---------- FAQ ACCORDION ---------- */
+  .faq-block{ max-width: 720px; margin: 0 auto 48px; }
+  .faq-heading{
+    font-family: var(--mono); font-size: 0.76rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gold-dim); text-align: center; margin-bottom: 20px;
+  }
+  .faq-list{ display: flex; flex-direction: column; gap: 12px; }
+  .faq-item{
+    border-radius: 10px; overflow: hidden;
+    transition: border-color 0.25s ease;
+  }
+  .faq-item:hover{ border-color: var(--violet); }
+  .faq-question{
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 18px 22px; background: none; border: none; cursor: pointer;
+    font-family: var(--body); font-size: 0.96rem; color: var(--ink); text-align: left;
+  }
+  .faq-icon{
+    font-family: var(--mono); font-size: 1.1rem; color: var(--gold);
+    flex-shrink: 0; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .faq-item.open .faq-icon{ transform: rotate(135deg); }
+  .faq-answer{
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), padding 0.4s cubic-bezier(0.16,1,0.3,1);
+    padding: 0 22px;
+  }
+  .faq-item.open .faq-answer{ max-height: 200px; padding: 0 22px 20px; }
+  .faq-answer p{ color: var(--ink-dim); font-size: 0.9rem; line-height: 1.65; }
+
   /* ---------- CONTACT ---------- */
   .contact-form-shell{
     position: relative;
@@ -1304,16 +1334,16 @@
         </div>
         <div class="proj-grid reveal-stagger">
           <div class="proj-card glass-panel glass-stagger-1">
-            <span class="proj-date">January 2026</span>
-            <div class="proj-title">A&amp;A Web Studio</div>
-            <div class="proj-desc">A responsive static portfolio site with structured navigation and an integrated contact form, designed and deployed independently — an early exercise in web design and client-facing presentation.</div>
-            <a href="https://aaweb.neocities.org" class="proj-link" target="_blank" rel="noopener">aaweb.neocities.org →</a>
-          </div>
-          <div class="proj-card glass-panel glass-stagger-2">
             <span class="proj-date">November 2025</span>
             <div class="proj-title">Ultimate Clicker</div>
             <div class="proj-desc">A browser-based incremental game with score tracking, multipliers, level progression, and an upgrade shop — built to practice game-loop logic and persistent state in vanilla JavaScript.</div>
             <a href="https://ultimate-clicker.w3spaces.com" class="proj-link" target="_blank" rel="noopener">ultimate-clicker.w3spaces.com →</a>
+          </div>
+          <div class="proj-card glass-panel glass-stagger-2">
+            <span class="proj-date">January 2026</span>
+            <div class="proj-title">A&amp;A Web Studio</div>
+            <div class="proj-desc">A responsive static portfolio site with structured navigation and an integrated contact form, designed and deployed independently — an early exercise in web design and client-facing presentation.</div>
+            <a href="https://aaweb.neocities.org" class="proj-link" target="_blank" rel="noopener">aaweb.neocities.org →</a>
           </div>
         </div>
       </div>
@@ -1426,6 +1456,66 @@
           <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
           <a href="https://www.linkedin.com/in/wizard-ecosystem/" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Launch Wizard Ecosystem →</a>
+        </div>
+
+        <div class="faq-block reveal">
+          <h4 class="faq-heading">Good questions, answered</h4>
+          <div class="faq-list">
+            <div class="faq-item glass-panel">
+              <button class="faq-question">
+                <span>Are you available for internships or collaborations?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Yes — that's the whole point of this page. I'm looking for internships, scholarships, and collaborations where I can actually contribute. Since I'm 12, a parent is involved in any real arrangement that requires transportation, but I can handle remote work on my own. I'd genuinely love to hear about opportunities.</p>
+              </div>
+            </div>
+            <div class="faq-item glass-panel">
+              <button class="faq-question">
+                <span>What's your core tech stack?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Python and Flask on the backend, JavaScript/HTML/CSS on the frontend, Electron for the desktop apps, SQLite for data, and Groq's API for the AI layer. Full breakdown is on the Skills page.</p>
+              </div>
+            </div>
+            <div class="faq-item glass-panel">
+              <button class="faq-question">
+                <span>Do you build Wizard Ecosystem alone?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Yes — the architecture, code, and deployment are all mine. Development updates and outreach around the project are also handled by me directly.</p>
+              </div>
+            </div>
+            <div class="faq-item glass-panel">
+              <button class="faq-question">
+                <span>How much time can you realistically commit?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>I'm in school full-time, so most of my time opens up after 4pm on weekdays, plus weekends and breaks. Taekwondo classes cut into that some days, so exact hours shift week to week — I'd rather be upfront about that than overpromise.</p>
+              </div>
+            </div>
+            <div class="faq-item glass-panel">
+              <button class="faq-question">
+                <span>Is Wizard Ecosystem open source?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Partially. The frontend for the primary web pages is open source on GitHub — the backend and Electron desktop apps aren't public yet. If you want to know more about how something specific works, just ask.</p>
+              </div>
+            </div>
+            <div class="faq-item glass-panel">
+              <button class="faq-question">
+                <span>What's the best way to reach you?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>The form right below, email, or LinkedIn messaging. For the fastest reply, email works best. I read everything and reply as quickly as I can.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="contact-form-shell reveal glass-panel">
@@ -1584,6 +1674,20 @@
     // Recompute after page switches (content height changes)
     const obs = new MutationObserver(() => setTimeout(update, 60));
     document.querySelectorAll('.page').forEach(p => obs.observe(p, { attributes: true, attributeFilter: ['class'] }));
+  })();
+
+  // ---- FAQ accordion ----
+  (function(){
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        item.closest('.faq-list').querySelectorAll('.faq-item.open').forEach(open => {
+          if (open !== item) open.classList.remove('open');
+        });
+        item.classList.toggle('open', !wasOpen);
+      });
+    });
   })();
 
   // ---- Cursor-follow glow, sitewide ----
