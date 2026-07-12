@@ -762,6 +762,15 @@
   .architecture-note p{ color: var(--ink-dim); font-size: 0.95rem; margin-bottom: 12px; }
   .architecture-note p:last-child{ margin-bottom: 0; }
 
+  .arch-diagram{
+    margin: 4px 0 28px;
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.15);
+    overflow-x: auto;
+  }
+  .arch-diagram svg{ width: 100%; min-width: 560px; height: auto; display: block; }
+
   /* ---------- RECOGNITION & TRACTION ---------- */
   .eval-card{
     padding: 32px; border-radius: 12px; margin-bottom: 32px;
@@ -872,6 +881,21 @@
   .skill-group li:last-child{ border-bottom: none; }
 
   .credentials{ margin-top: 70px; }
+
+  /* ---------- GITHUB CONTRIBUTION GRAPH ---------- */
+  .gh-graph-card{
+    padding: 32px; border-radius: 14px; text-align: center;
+    overflow-x: auto;
+  }
+  .gh-graph-img{
+    max-width: 100%; height: auto; display: block; margin: 0 auto 20px;
+    filter: saturate(1.1);
+  }
+  .gh-graph-link{
+    font-family: var(--mono); font-size: 0.85rem; color: var(--gold);
+    border-bottom: 1px solid transparent; transition: border-color 0.2s ease;
+  }
+  .gh-graph-link:hover{ border-color: var(--gold); }
   .cred-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   @media (max-width: 700px){ .cred-grid{ grid-template-columns: 1fr; } }
   .cred-block{ padding: 26px; border-radius: 10px; }
@@ -996,7 +1020,7 @@
       <div class="hero-inner">
         <div class="eyebrow">Founder · Wizard Ecosystem</div>
         <h1 class="hero-title">Student Developer &amp; <em><span id="type-target"></span><span class="type-cursor">|</span></em></h1>
-        <p class="hero-sub">Most people my age are still learning loops and conditionals. I've spent the last few months shipping to production. <strong>Wizard Ecosystem</strong> brings an assistant, browser, search engine, mail, notes, automation, calendar, chat, and a developer API into a single platform — live today, built and deployed without a team.</p>
+        <p class="hero-sub"><strong>Wizard Ecosystem</strong> replaces nine separate tools with one platform — live today, built and deployed without a team. Most people my age are still learning loops and conditionals. I've spent the last few months shipping to production.</p>
         <div class="hero-ctas">
           <a href="https://wizardecosystem.dpdns.org" class="btn btn-primary" target="_blank" rel="noopener">Explore Wizard Ecosystem →</a>
           <a href="https://github.com/ag-ultima" class="btn btn-secondary" target="_blank" rel="noopener">View GitHub</a>
@@ -1064,7 +1088,7 @@
           <h2 class="section-title" style="margin-bottom: 30px;">I started programming by building things I wanted to <em>use</em>.</h2>
 
           <h3>How it started</h3>
-          <p>In June 2025, I picked up HTML and JavaScript the way most people start: building small tools and games just to see if I could. There was no plan for an "ecosystem" yet, just curiosity and a habit of finishing what I started.</p>
+          <p>In June 2025, I taught myself HTML and JavaScript — no classes, no bootcamp, just building small tools and games to see if I could. There was no plan for an "ecosystem" yet, just curiosity and a habit of finishing what I started.</p>
           <p>By November 2025 I'd moved into Python, drawn to how fast it let an idea become something that actually ran. Scripts and automations came first, then backend logic, then full applications.</p>
 
           <h3>How it became Wizard</h3>
@@ -1126,6 +1150,22 @@
             <div class="t-date">April 21, 2026</div>
             <div class="t-desc">"What if there was more?" — <strong>Wizard Ecosystem</strong> begins.</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap"><hr class="rule reveal"></div>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-eyebrow">Still Building</div>
+          <h2 class="section-title">The commits <em>don't stop</em>.</h2>
+          <p class="section-lede">This updates on its own — pulled live from GitHub, not a screenshot I'll forget to refresh.</p>
+        </div>
+        <div class="gh-graph-card glass-panel reveal">
+          <img src="https://ghchart.rshah.org/8266f0/ag-ultima" alt="Arnav Gupta's GitHub contribution graph" loading="lazy" class="gh-graph-img">
+          <a href="https://github.com/ag-ultima" target="_blank" rel="noopener" class="gh-graph-link">View full activity on GitHub →</a>
         </div>
       </div>
     </section>
@@ -1245,6 +1285,88 @@
 
         <div class="architecture-note reveal">
           <h4>Architecture &amp; Infrastructure</h4>
+
+          <div class="arch-diagram">
+            <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram: nine client apps connect to a Flask backend, which connects to SQLite, Groq API, and deployment infrastructure">
+              <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#6c6086"/>
+                </marker>
+              </defs>
+
+              <!-- App row -->
+              <g font-family="JetBrains Mono, monospace" font-size="11" fill="#9d8fb8">
+                <g>
+                  <rect x="10" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="51" y="40" text-anchor="middle" font-size="16">🧠</text>
+                </g>
+                <g>
+                  <rect x="102" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="143" y="40" text-anchor="middle" font-size="16">🌐</text>
+                </g>
+                <g>
+                  <rect x="194" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="235" y="40" text-anchor="middle" font-size="16">🔍</text>
+                </g>
+                <g>
+                  <rect x="286" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="327" y="40" text-anchor="middle" font-size="16">📧</text>
+                </g>
+                <g>
+                  <rect x="378" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="419" y="40" text-anchor="middle" font-size="16">📝</text>
+                </g>
+                <g>
+                  <rect x="470" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="511" y="40" text-anchor="middle" font-size="16">📅</text>
+                </g>
+                <g>
+                  <rect x="562" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="603" y="40" text-anchor="middle" font-size="16">💬</text>
+                </g>
+                <g>
+                  <rect x="654" y="16" width="82" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="695" y="40" text-anchor="middle" font-size="16">🤖</text>
+                </g>
+                <g>
+                  <rect x="746" y="16" width="44" height="40" rx="8" fill="#161022" stroke="#e8b657" stroke-opacity="0.5"/>
+                  <text x="768" y="40" text-anchor="middle" font-size="16">💻</text>
+                </g>
+              </g>
+              <text x="400" y="80" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1" fill="#6c6086">NINE CLIENT APPS · ONE SHARED ACCOUNT</text>
+
+              <!-- Funnel lines into backend -->
+              <path d="M400,90 L400,130" stroke="#6c6086" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+              <!-- Flask backend node -->
+              <rect x="270" y="140" width="260" height="60" rx="10" fill="#1d1530" stroke="#8266f0"/>
+              <text x="400" y="165" text-anchor="middle" font-family="Fraunces, serif" font-size="16" font-weight="600" fill="#ede6f7">Flask Backend</text>
+              <text x="400" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#9d8fb8">50+ routes · shared profile system</text>
+
+              <!-- Branch lines -->
+              <path d="M400,200 L400,230" stroke="#6c6086" stroke-width="1.5"/>
+              <path d="M400,230 L180,230" stroke="#6c6086" stroke-width="1.5"/>
+              <path d="M400,230 L400,230" stroke="#6c6086" stroke-width="1.5"/>
+              <path d="M400,230 L620,230" stroke="#6c6086" stroke-width="1.5"/>
+              <path d="M180,230 L180,260" stroke="#6c6086" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <path d="M400,230 L400,260" stroke="#6c6086" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <path d="M620,230 L620,260" stroke="#6c6086" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+              <!-- Three destination nodes -->
+              <rect x="80" y="264" width="200" height="70" rx="10" fill="#161022" stroke="#e8b657" stroke-opacity="0.6"/>
+              <text x="180" y="292" text-anchor="middle" font-family="Fraunces, serif" font-size="14" font-weight="600" fill="#ede6f7">SQLite</text>
+              <text x="180" y="310" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#9d8fb8">11-table schema</text>
+
+              <rect x="300" y="264" width="200" height="70" rx="10" fill="#161022" stroke="#e8b657" stroke-opacity="0.6"/>
+              <text x="400" y="292" text-anchor="middle" font-family="Fraunces, serif" font-size="14" font-weight="600" fill="#ede6f7">Groq API</text>
+              <text x="400" y="310" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#9d8fb8">Llama 4 · AI layer</text>
+
+              <rect x="520" y="264" width="200" height="70" rx="10" fill="#161022" stroke="#e8b657" stroke-opacity="0.6"/>
+              <text x="620" y="292" text-anchor="middle" font-family="Fraunces, serif" font-size="14" font-weight="600" fill="#ede6f7">Deployment</text>
+              <text x="620" y="310" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#9d8fb8">GitHub Pages · Electron · PythonAnywhere</text>
+            </svg>
+          </div>
+
           <p>A Flask backend handles fifty-plus routes across an eleven-table SQLite schema — users, chats, memory, calendar events, uploaded files, API keys, personalities, agents, chains, email aliases, and conversations — tied together through a shared profile system.</p>
           <p>The frontend ships two ways: static pages on GitHub Pages for the browser experience, and native Electron installers — NSIS for Windows, DMG for macOS, AppImage for Linux — with auto-updates through GitHub Releases. Streaming responses run over Server-Sent Events, sessions use HTTP-only, SameSite=None, Secure cookies, and CORS stays scoped to the ecosystem's own domains.</p>
         </div>
@@ -1355,7 +1477,7 @@
         <div class="section-head reveal">
           <div class="section-eyebrow">Skills</div>
           <h2 class="section-title">The <em>toolkit</em> behind it.</h2>
-          <p class="section-lede">Everything below has shipped in a live application — none of it is untested classroom knowledge.</p>
+          <p class="section-lede">Every one of these is self-taught — no classes, no bootcamp. Most of it has already shipped inside a live application; Java is the newest addition, still looking for its first real project.</p>
         </div>
         <div class="skill-groups reveal-stagger">
           <div class="skill-group glass-panel glass-stagger-1">
